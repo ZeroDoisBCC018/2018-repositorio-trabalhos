@@ -168,7 +168,6 @@ int main(int argc, char const *argv[]) {
 
   }
   
-  free(vetc);
   free(cartao);
 
   return 0;
