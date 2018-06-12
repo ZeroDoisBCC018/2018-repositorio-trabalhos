@@ -105,6 +105,9 @@ int main(int argc, char const *argv[]) {
     }
   }
   
+  for(int u = 0; u<numpes; u++){
+   free(cartao[u].nome); 
+  }
   free(cartao);
 
   return 0;
