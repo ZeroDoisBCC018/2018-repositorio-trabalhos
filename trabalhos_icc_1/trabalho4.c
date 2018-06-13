@@ -3,7 +3,11 @@
 
 typedef struct{
 	char type;
-	short int a1, a2, b1, b2, c1, c2, d1, d2;
+	short int a2, a3, b2, b3, c2, c3, d2, d3;
+	short int a1 = (a2/a3);
+	short int b1 = (b2/b3);
+	short int c1 = (c2/c3);
+	short int d1 = (d2/d3);
 }parameter;
 
 int gaussian_scaling(){
@@ -20,14 +24,14 @@ int main(int argc, char const *argv[]){
 
 	for(i=0; i<noequ; i++){	  //sera q tem um jeito melhor de fazer isso?
 		vector_access[i].type = getchar();
-		vector_access[i].a1 = scanf("%hd ", &vector_access[i].a1);
 		vector_access[i].a2 = scanf("%hd ", &vector_access[i].a2);
-		vector_access[i].b1 = scanf("%hd ", &vector_access[i].b1);
+		vector_access[i].a3 = scanf("%hd ", &vector_access[i].a3);
 		vector_access[i].b2 = scanf("%hd ", &vector_access[i].b2);
-		vector_access[i].c1 = scanf("%hd ", &vector_access[i].c1);
+		vector_access[i].b3 = scanf("%hd ", &vector_access[i].b3);
 		vector_access[i].c2 = scanf("%hd ", &vector_access[i].c2);
-		vector_access[i].d1 = scanf("%hd ", &vector_access[i].d1);
+		vector_access[i].c3 = scanf("%hd ", &vector_access[i].c3);
 		vector_access[i].d2 = scanf("%hd ", &vector_access[i].d2);
+		vector_access[i].d3 = scanf("%hd ", &vector_access[i].d3);
 	//vai rolar um if aqui
 	}
 }
