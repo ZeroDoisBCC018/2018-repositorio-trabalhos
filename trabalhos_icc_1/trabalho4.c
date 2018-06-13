@@ -10,15 +10,15 @@ typedef struct{
 	short int d1 = (d2/d3);
 }parameter;
 
-int gaussian_scaling(){
+short int gaussian_scaling(){
 
 }
 
 int main(int argc, char const *argv[]){
 
-	short int noequ  = scanf("%hd ", &noequ);
+	unsigned short int noequ  = scanf("%hu ", &noequ);
 	unsigned short int nocoef = scanf("%hu ", &nocoef);
-	short int i, j;
+	unsigned short int i, j;
 
 	parameter *vector_access = (parameter*)malloc(sizeof(parameter)*noequ);
 
