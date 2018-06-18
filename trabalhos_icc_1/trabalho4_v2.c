@@ -6,12 +6,11 @@ typedef struct {
   short int denominador;
 } coeficiente;
 
-coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ,
-                            unsigned short int nocoef, unsigned short int i,
-                            unsigned short int j) {
-  coeficiente** ponteiro = NULL;
-
-  if (tipo == 'p') {
+coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ, unsigned short int nocoef, unsigned short int i, unsigned short int j){
+	
+	coeficiente** ponteiro = NULL;
+	
+	if (tipo == 'p') {
     ponteiro = (coeficiente**)malloc(sizeof(coeficiente*));
     for (i = 0; i < noequ; i++) {
       ponteiro[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
@@ -46,11 +45,12 @@ coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ,
 }
 
 int main(int argc, char const* argv[]) {
+	
   unsigned short int noequ = scanf("%hu ", &noequ);
   unsigned short int nocoef = scanf("%hu ", &nocoef);
-  unsigned short int i, j;
+  unsigned short int i = 0, j = 0;
   unsigned char tipo1, tipo2;
-
+  
   coeficiente** matriz1 = NULL;
   coeficiente** matriz2 = NULL;
 
@@ -59,6 +59,6 @@ int main(int argc, char const* argv[]) {
 
   tipo2 = getchar();
   matriz2 = alocar_matriz(tipo2, noequ, nocoef, i, j);
-
+  
   return 0;
 }
