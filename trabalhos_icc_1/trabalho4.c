@@ -17,7 +17,7 @@ int main(int argc, char const* argv[]) {
   if (tipo1 == 'p') {
     coeficiente** ponteiro1 = (coeficiente**)malloc(sizeof(coeficiente*));
     for (i = 0; i < noequ; i++) {
-      coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
+      ponteiro1[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
     }
 
     for (i = 0; i < nocoef; i++) {
@@ -30,7 +30,7 @@ int main(int argc, char const* argv[]) {
   } else {
     coeficiente** ponteiro1 = (coeficiente**)malloc(2 * sizeof(coeficiente*));
     for (i = 0; i < noequ; i++) {
-      coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
+      ponteiro1[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
     }
     for (i = 0; i < nocoef; i++) {
       ponteiro1[0][i].numerador = scanf("%hd ", &ponteiro1[0][i].numerador);
@@ -51,7 +51,7 @@ int main(int argc, char const* argv[]) {
   if (tipo2 == 'p') {
     coeficiente** ponteiro2 = (coeficiente**)malloc(sizeof(coeficiente*));
     for (i = 0; i < noequ; i++) {
-      coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
+      ponteiro2[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
     }
     for (i = 0; i < nocoef; i++) {
       ponteiro2[0][i].numerador = scanf("%hd ", &ponteiro2[0][i].numerador);
@@ -62,7 +62,7 @@ int main(int argc, char const* argv[]) {
   } else {
     coeficiente** ponteiro2 = (coeficiente**)malloc(2 * sizeof(coeficiente*));
     for (i = 0; i < noequ; i++) {
-      coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
+      ponteiro2[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
     }
     for (i = 0; i < nocoef; i++) {
       ponteiro2[0][i].numerador = scanf("%hd ", &ponteiro2[0][i].numerador);
@@ -77,4 +77,5 @@ int main(int argc, char const* argv[]) {
       ponteiro2[1][j].denominador = scanf("%hd ", &ponteiro2[0][j].denominador);
     }
   }
+  return 0;
 }
