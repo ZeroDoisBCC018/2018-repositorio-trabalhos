@@ -21,10 +21,10 @@ int main(int argc, char const* argv[]) {
     }
 
     for (i = 0; i < nocoef; i++) {
-      ponteiro1[0][i] = scanf("%hd ", &ponteiro1[0][i].numerador);
+      ponteiro1[0][i] = scanf("%h ", &ponteiro1[0][i].numerador);
     }
     for (i = 0; i < nocoef; i++) {
-      ponteiro1[1][i] = scanf("%hd ", &ponteiro1[0][i].denominador);
+      ponteiro1[1][i] = scanf("%h ", &ponteiro1[0][i].denominador);
     }
 
   } else {
@@ -33,16 +33,16 @@ int main(int argc, char const* argv[]) {
       coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
     }
     for (i = 0; i < nocoef; i++) {
-      ponteiro1[0][i] = scanf("%hd ", &ponteiro1[0][i].numerador);
+      ponteiro1[0][i] = scanf("%h ", &ponteiro1[0][i].numerador);
     }
     for (i = 0; i < nocoef; i++) {
-      ponteiro1[0][i] = scanf("%hd ", &ponteiro1[0][i].denominador);
+      ponteiro1[0][i] = scanf("%h ", &ponteiro1[0][i].denominador);
     }
     for (j = 0; j < nocoef; j++) {
-      ponteiro1[1][j] = scanf("%hd ", &ponteiro1[0][j].numerador);
+      ponteiro1[1][j] = scanf("%h ", &ponteiro1[0][j].numerador);
     }
     for (j = 0; j < nocoef; j++) {
-      ponteiro1[1][j] = scanf("%hd ", &ponteiro1[0][j].denominador);
+      ponteiro1[1][j] = scanf("%h ", &ponteiro1[0][j].denominador);
     }
   }
 
@@ -54,10 +54,10 @@ int main(int argc, char const* argv[]) {
       coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
     }
     for (i = 0; i < nocoef; i++) {
-      ponteiro2[0][i] = scanf("%hd ", &ponteiro2[0][i].numerador);
+      ponteiro2[0][i] = scanf("%h ", &ponteiro2[0][i].numerador);
     }
     for (i = 0; i < nocoef; i++) {
-      ponteiro2[0][i] = scanf("%hd ", &ponteiro2[0][i].denominador);
+      ponteiro2[1][i] = scanf("%h ", &ponteiro2[0][i].denominador);
     }
   } else {
     coeficiente** ponteiro2 = (coeficiente**)malloc(2 * sizeof(coeficiente*));
@@ -65,16 +65,16 @@ int main(int argc, char const* argv[]) {
       coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
     }
     for (i = 0; i < nocoef; i++) {
-      ponteiro2[0][i] = scanf("%hd ", &ponteiro2[0][i].numerador);
+      ponteiro2[0][i] = scanf("%h ", &ponteiro2[0][i].numerador);
     }
     for (i = 0; i < nocoef; i++) {
-      ponteiro2[0][i] = scanf("%hd ", &ponteiro2[0][i].denominador);
+      ponteiro2[0][i] = scanf("%h ", &ponteiro2[0][i].denominador);
     }
     for (j = 0; j < nocoef; j++) {
-      ponteiro2[1][j] = scanf("%hd ", &ponteiro2[1][j].numerador);
+      ponteiro2[1][j] = scanf("%h ", &ponteiro2[0][j].numerador);
     }
     for (j = 0; j < nocoef; j++) {
-      ponteiro2[1][j] = scanf("%hd ", &ponteiro2[1][j].denominador);
+      ponteiro2[1][j] = scanf("%h ", &ponteiro2[0][j].denominador);
     }
   }
 }
