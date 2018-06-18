@@ -1,37 +1,80 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct{
-	char type;
-	short int a2, a3, b2, b3, c2, c3, d2, d3;
-	short int a1 = (a2/a3);
-	short int b1 = (b2/b3);
-	short int c1 = (c2/c3);
-	short int d1 = (d2/d3);
-}parameter;
+typedef struct {
+  short int numerador;
+  short int denominador;
+} coeficiente;
 
-short int gaussian_scaling(){
+int main(int argc, char const* argv[]) {
+  unsigned short int noequ = scanf("%hu ", &noequ);
+  unsigned short int nocoef = scanf("%hu ", &nocoef);
+  unsigned short int i, j;
+  unsigned char tipo1, tipo2;
 
-}
+  tipo1 = getchar();
 
-int main(int argc, char const *argv[]){
+  if (tipo1 == 'p') {
+    coeficiente** ponteiro1 = (coeficiente**)malloc(sizeof(coeficiente*));
+    for (i = 0; i < noequ; i++) {
+      coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
+    }
 
-	unsigned short int noequ  = scanf("%hu ", &noequ);
-	unsigned short int nocoef = scanf("%hu ", &nocoef);
-	unsigned short int i, j;
+    for (i = 0; i < nocoef; i++) {
+      ponteiro1[0][i] = scanf("%hd ", &ponteiro1[0][i].numerador);
+    }
+    for (i = 0; i < nocoef; i++) {
+      ponteiro1[1][i] = scanf("%hd ", &ponteiro1[0][i].denominador);
+    }
 
-	parameter *vector_access = (parameter*)malloc(sizeof(parameter)*noequ);
+  } else {
+    coeficiente** ponteiro1 = (coeficiente**)malloc(2 * sizeof(coeficiente*));
+    for (i = 0; i < noequ; i++) {
+      coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
+    }
+    for (i = 0; i < nocoef; i++) {
+      ponteiro1[0][i] = scanf("%hd ", &ponteiro1[0][i].numerador);
+    }
+    for (i = 0; i < nocoef; i++) {
+      ponteiro1[0][i] = scanf("%hd ", &ponteiro1[0][i].denominador);
+    }
+    for (j = 0; j < nocoef; j++) {
+      ponteiro1[1][j] = scanf("%hd ", &ponteiro1[0][j].numerador);
+    }
+    for (j = 0; j < nocoef; j++) {
+      ponteiro1[1][j] = scanf("%hd ", &ponteiro1[0][j].denominador);
+    }
+  }
 
-	for(i=0; i<noequ; i++){	  //sera q tem um jeito melhor de fazer isso?
-		vector_access[i].type = getchar();
-		vector_access[i].a2 = scanf("%hd ", &vector_access[i].a2);
-		vector_access[i].a3 = scanf("%hd ", &vector_access[i].a3);
-		vector_access[i].b2 = scanf("%hd ", &vector_access[i].b2);
-		vector_access[i].b3 = scanf("%hd ", &vector_access[i].b3);
-		vector_access[i].c2 = scanf("%hd ", &vector_access[i].c2);
-		vector_access[i].c3 = scanf("%hd ", &vector_access[i].c3);
-		vector_access[i].d2 = scanf("%hd ", &vector_access[i].d2);
-		vector_access[i].d3 = scanf("%hd ", &vector_access[i].d3);
-	//vai rolar um if aqui
-	}
+  tipo2 = getchar();
+
+  if (tipo2 == 'p') {
+    coeficiente** ponteiro2 = (coeficiente**)malloc(sizeof(coeficiente*));
+    for (i = 0; i < noequ; i++) {
+      coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
+    }
+    for (i = 0; i < nocoef; i++) {
+      ponteiro2[0][i] = scanf("%hd ", &ponteiro2[0][i].numerador);
+    }
+    for (i = 0; i < nocoef; i++) {
+      ponteiro2[1][i] = scanf("%hd ", &ponteiro2[0][i].denominador);
+    }
+  } else {
+    coeficiente** ponteiro2 = (coeficiente**)malloc(2 * sizeof(coeficiente*));
+    for (i = 0; i < noequ; i++) {
+      coeficiente[i] = (coeficiente*)malloc(nocoef * sizeof(coeficiente));
+    }
+    for (i = 0; i < nocoef; i++) {
+      ponteiro2[0][i] = scanf("%hd ", &ponteiro2[0][i].numerador);
+    }
+    for (i = 0; i < nocoef; i++) {
+      ponteiro2[0][i] = scanf("%hd ", &ponteiro2[0][i].denominador);
+    }
+    for (j = 0; j < nocoef; j++) {
+      ponteiro2[1][j] = scanf("%hd ", &ponteiro2[0][j].numerador);
+    }
+    for (j = 0; j < nocoef; j++) {
+      ponteiro2[1][j] = scanf("%hd ", &ponteiro2[0][j].denominador);
+    }
+  }
 }
