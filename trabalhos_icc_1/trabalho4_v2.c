@@ -9,7 +9,7 @@ typedef struct {
 coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ,
                             unsigned short int nocoef, unsigned short int i,
                             unsigned short int j) {
-  coeficiente** ponteiro;
+  coeficiente** ponteiro = NULL;
 
   if (tipo == 'p') {
     ponteiro = (coeficiente**)malloc(sizeof(coeficiente*));
@@ -51,7 +51,8 @@ int main(int argc, char const* argv[]) {
   unsigned short int i, j;
   unsigned char tipo1, tipo2;
 
-  coeficiente **matriz1, matriz2;
+  coeficiente** matriz1 = NULL;
+  coeficiente** matriz2 = NULL;
 
   tipo1 = getchar();
   matriz1 = alocar_matriz(tipo1, noequ, nocoef, i, j);
