@@ -6,8 +6,7 @@ typedef struct {
   short int denominador;
 } coeficiente;
 
-coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ,
-                            unsigned short int nocoef, unsigned short int i) {
+coeficiente** alocar_matriz(char tipo, unsigned short int noequ, unsigned short int nocoef, unsigned short int i) {
   coeficiente** ponteiro = NULL;
   unsigned short int mk;
 
@@ -61,7 +60,7 @@ int main(int argc, char const* argv[]) {
   unsigned short int noequ = scanf("%hu ", &noequ);
   unsigned short int nocoef = scanf("%hu ", &nocoef);
   unsigned short int i = 0;
-  unsigned char tipo1;
+  char tipo1;
 
   coeficiente** matriz = NULL;
 
