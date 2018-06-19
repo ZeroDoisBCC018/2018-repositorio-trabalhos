@@ -8,13 +8,13 @@ typedef struct {
 
 void swap(coeficiente** matriz, unsigned short int noequ,
           unsigned short int nocoef, unsigned short int i) {
-  short int inst1, inst2, flag;
+  short int inst1, inst2, flag = 0;
 
   if (matriz[0][0].numerador == 0) {
-    for (i = 0; i < noequ; i++) {
+    do {
+      i++;
       flag = i;
-      if (matriz[i][0] != 0) break;
-    }
+    } while (matriz[i][0].numerador != 0);
 
     for (i = 0; i < nocoef; i++) {
       inst1 = matriz[0][i].numerador;
