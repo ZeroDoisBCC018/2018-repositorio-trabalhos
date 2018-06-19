@@ -6,7 +6,33 @@ typedef struct {
   short int denominador;
 } coeficiente;
 
-coeficiente** alocar_matriz(char tipo, unsigned short int noequ, unsigned short int nocoef, unsigned short int i) {
+void swap(coeficiente** matriz, unsigned short int noequ,
+          unsigned short int nocoef, unsigned short int i) {
+  short int inst1, inst2, flag;
+  for (i = 0; i < noequ; i++) {
+    flag = i;
+    if (matriz[i][0] != 0) break;
+  }
+
+  for (i = 0; i < nocoef; i++) {
+    inst1 = matriz[0][i].numerador;
+    inst2 = matriz[flag][i].numerador;
+    matriz[flag][i].numerador = inst1;
+    matriz[0][i].numerador = inst2;
+  }
+
+  // if(matriz[0][0].numerador == 0){
+}
+else {
+  matriz = escalonamento();
+}
+}
+
+coeficiente** escalonamento(coeficiente** matriz, unsigned short int noequ,
+                            unsigned short int nocoef, unsigned short int i) {}
+
+coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ,
+                            unsigned short int nocoef, unsigned short int i) {
   coeficiente** ponteiro = NULL;
   unsigned short int mk;
 
@@ -60,12 +86,13 @@ int main(int argc, char const* argv[]) {
   unsigned short int noequ = scanf("%hu ", &noequ);
   unsigned short int nocoef = scanf("%hu ", &nocoef);
   unsigned short int i = 0;
-  char tipo1;
+  unsigned char tipo1;
 
   coeficiente** matriz = NULL;
 
   tipo1 = getchar();
   matriz = alocar_matriz(tipo1, noequ, nocoef, i);
+  swap(matriz, noequ, nocoef, i);
 
   return 0;
 }
