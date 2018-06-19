@@ -1,7 +1,7 @@
-nclude<stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
-    typedef struct {
+typedef struct {
   short int numerador;
   short int denominador;
 } coeficiente;
