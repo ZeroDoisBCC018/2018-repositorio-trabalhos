@@ -7,18 +7,25 @@ typedef struct {
   short int denominador;
 } coeficiente;
 
+void mmc(){
+	
+}
+
 bool escalonamento(coeficiente** matriz, unsigned short int noequ, unsigned short int nocoef, unsigned short int i){
 	
 	if(matriz[noequ-1][0].numerador && matriz[noequ-1][1].numerador && matriz[noequ-1][2].numerador == 0){
-		if(matriz[noequ-1][nocoef].numerador != 0)
+		if(matriz[noequ-1][nocoef].numerador != 0){
 			return false;
-	 } else {
-		 return true;
-	 }
-	 return false;
+		} else {
+			return true;
+		} 
+	}
+	//aqui comeca 
+	mmc();
 }
 
 bool swap(coeficiente** matriz, unsigned short int noequ, unsigned short int nocoef, unsigned short int i) {
+	
   short int inst, flag = 0;
 
   if (matriz[0][0].numerador == 0) {
@@ -42,6 +49,7 @@ bool swap(coeficiente** matriz, unsigned short int noequ, unsigned short int noc
 }
 
 coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ, unsigned short int nocoef, unsigned short int i) {
+	
   coeficiente** ponteiro = NULL;
   unsigned short int mk;
 
@@ -92,6 +100,7 @@ coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ, unsign
 }
 
 int main(int argc, char const* argv[]) {
+	
   unsigned short int noequ = scanf("%hu ", &noequ);
   unsigned short int nocoef = scanf("%hu ", &nocoef);
   unsigned short int i = 0;
@@ -104,8 +113,8 @@ int main(int argc, char const* argv[]) {
   matriz = alocar_matriz(tipo1, noequ, nocoef, i);
   
   colisao = swap(matriz, noequ, nocoef, i);
-  if(colisao == true) printf("sim");
-	else printf("nao");
+  if(colisao == true) printf("sim\n");
+	else printf("nao\n");
 
   return 0;
 }
