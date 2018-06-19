@@ -7,6 +7,7 @@ typedef struct {
 } coeficiente;
 
 void escalonamento(coeficiente** matriz, unsigned short int noequ, unsigned short int nocoef, unsigned short int i) {
+  //esse if vai dar problema, tem que trocar os && por ==
   if (matriz[noequ - 1][0].numerador && matriz[noequ - 1][1].numerador && matriz[noequ - 1][2].numerador == 0)
     return;
 
