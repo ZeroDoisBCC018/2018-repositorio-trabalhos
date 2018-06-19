@@ -6,8 +6,15 @@ typedef struct {
   short int denominador;
 } coeficiente;
 
-sei_la escalonamento(coeficiente** matriz, unsigned short int noequ,
-                     unsigned short int nocoef, unsigned short int i) {}
+void escalonamento(coeficiente** matriz, unsigned short int noequ,
+                   unsigned short int nocoef, unsigned short int i) {
+  if (matriz[noequ - 1][0].numerador && matriz[noequ - 1][1].numerador &&
+      matriz[noequ - 1][2].numerador == 0)
+    return;
+
+  short int p;
+  p =
+}
 
 void swap(coeficiente** matriz, unsigned short int noequ,
           unsigned short int nocoef, unsigned short int i) {
@@ -24,8 +31,9 @@ void swap(coeficiente** matriz, unsigned short int noequ,
       matriz[0][i].numerador = matriz[flag][i].numerador;
       matriz[flag][i].numerador = inst;
     }
+  } else {
+    escalonamento(matriz, noequ, nocoef, i);
   }
-  escalonamento();
 }
 
 coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ,
