@@ -9,23 +9,21 @@ typedef struct {
 void swap(coeficiente** matriz, unsigned short int noequ,
           unsigned short int nocoef, unsigned short int i) {
   short int inst1, inst2, flag;
-  for (i = 0; i < noequ; i++) {
-    flag = i;
-    if (matriz[i][0] != 0) break;
-  }
 
-  for (i = 0; i < nocoef; i++) {
-    inst1 = matriz[0][i].numerador;
-    inst2 = matriz[flag][i].numerador;
-    matriz[flag][i].numerador = inst1;
-    matriz[0][i].numerador = inst2;
-  }
+  if (matriz[0][0].numerador == 0) {
+    for (i = 0; i < noequ; i++) {
+      flag = i;
+      if (matriz[i][0] != 0) break;
+    }
 
-  // if(matriz[0][0].numerador == 0){
-}
-else {
-  matriz = escalonamento();
-}
+    for (i = 0; i < nocoef; i++) {
+      inst1 = matriz[0][i].numerador;
+      inst2 = matriz[flag][i].numerador;
+      matriz[flag][i].numerador = inst1;
+      matriz[0][i].numerador = inst2;
+    }
+  }
+  escalonamento();
 }
 
 coeficiente** escalonamento(coeficiente** matriz, unsigned short int noequ,
