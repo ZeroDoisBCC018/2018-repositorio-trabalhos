@@ -7,25 +7,37 @@ typedef struct {
   short int denominador;
 } coeficiente;
 
-void mmc(){
-	
-}
+void mmc(coeficiente** matriz, short int){
 
+   short int resto, a, b;
+
+    a = ;
+    b = ;
+
+    do{
+        resto = a % b;
+        a = b;
+        b = resto;
+    }while (resto != 0);
+
+    return (matriz[][].numerador)*(matriz[][].numerador)/a;
+}
+  
 bool escalonamento(coeficiente** matriz, unsigned short int noequ, unsigned short int nocoef, unsigned short int i){
-	
-	if(matriz[noequ-1][0].numerador && matriz[noequ-1][1].numerador && matriz[noequ-1][2].numerador == 0){
-		if(matriz[noequ-1][nocoef].numerador != 0){
-			return false;
-		} else {
-			return true;
-		} 
-	}
-	//aqui comeca 
-	mmc();
+  
+  if(matriz[noequ-1][0].numerador && matriz[noequ-1][1].numerador && matriz[noequ-1][2].numerador == 0){
+    if(matriz[noequ-1][nocoef].numerador != 0){
+      return false;
+    } else {
+      return true;
+    } 
+  }
+  //aqui comeca 
+  mmc();
 }
 
 bool swap(coeficiente** matriz, unsigned short int noequ, unsigned short int nocoef, unsigned short int i) {
-	
+  
   short int inst, flag = 0;
 
   if (matriz[0][0].numerador == 0) {
@@ -39,17 +51,17 @@ bool swap(coeficiente** matriz, unsigned short int noequ, unsigned short int noc
       matriz[0][i].numerador = matriz[flag][i].numerador;
       matriz[flag][i].numerador = inst;
     }
-  }	  
+  }   
   bool colisao = escalonamento(matriz, noequ, nocoef, i);
   if(colisao == true){
-	   return true;
+     return true;
    } else {
-	   return false;
-		}
+     return false;
+    }
 }
 
 coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ, unsigned short int nocoef, unsigned short int i) {
-	
+  
   coeficiente** ponteiro = NULL;
   unsigned short int mk;
 
@@ -100,7 +112,7 @@ coeficiente** alocar_matriz(unsigned char tipo, unsigned short int noequ, unsign
 }
 
 int main(int argc, char const* argv[]) {
-	
+  
   unsigned short int noequ = scanf("%hu ", &noequ);
   unsigned short int nocoef = scanf("%hu ", &nocoef);
   unsigned short int i = 0;
@@ -114,7 +126,7 @@ int main(int argc, char const* argv[]) {
   
   colisao = swap(matriz, noequ, nocoef, i);
   if(colisao == true) printf("sim\n");
-	else printf("nao\n");
+  else printf("nao\n");
 
   return 0;
 }
