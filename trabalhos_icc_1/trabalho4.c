@@ -38,8 +38,10 @@ void libera_memoria(coef** mat, int neq) {
   free(mat);
 }
 
-long int mmc(int a, int b) {
-  long int c, d, resto;
+long mmc(int a, int b) {
+  long c, d, resto;
+  a = c;
+  b = d;
 
   do {
     resto = c % d;
@@ -49,7 +51,7 @@ long int mmc(int a, int b) {
 
   return (a * b) / c;
 }
-
+// falta refazer o swap no caso do pivo ser 0 de novo
 int escalonamento(coef** mat, int neq, int nco, int cont) {
   if (cont == neq) {
     if (mat[neq - 1][nco - 1].n != 0) {
@@ -59,8 +61,7 @@ int escalonamento(coef** mat, int neq, int nco, int cont) {
     }
   }
 
-  long int aux0;
-  int i = 0, j = 0;
+  long aux0;
   int a1 = (mat[cont - 1][cont - 1].n) * (mat[cont][cont - 1].d);
   int a2 = a1 * (mat[cont - 1][j].d);
   int a3 = (mat[i][j].d);
@@ -69,8 +70,8 @@ int escalonamento(coef** mat, int neq, int nco, int cont) {
   int a6 = (mat[cont - 1][j].n) * (mat[i][j].d);
   int a7 = (mat[cont - 1][cont - 1].d) * (mat[i][cont - 1].n);
 
-  for (i = cont; i < neq; i++) {
-    for (j = cont - 1; j < nco; j++) {
+  for (int i = cont; i < neq; i++) {
+    for (int j = cont - 1; j < nco; j++) {
       aux0 = mmc(a2, a3);
       a3 = aux0;
       mat[i][j].n = ((a4 * a5) - (a6 * a7)) / (mat[i][j].d);
@@ -78,8 +79,8 @@ int escalonamento(coef** mat, int neq, int nco, int cont) {
   }
 
   int aux1, aux2;
-  for (i = 0; i < neq; i++) {
-    for (j = 0; j < nco; j++) {
+  for (int i = 0; i < neq; i++) {
+    for (int j = 0; j < nco; j++) {
       aux1 = mat[i][j].n;
       aux2 = mat[i][j].d;
       if (aux1 % aux2 == 0) {
@@ -95,9 +96,9 @@ int escalonamento(coef** mat, int neq, int nco, int cont) {
 
 int swap(coef** mat, int neq, int nco, int cont) {
   int colisao, inst;
-
+  // isso vale so para a primeira vez
   if (mat[0][0].n != 0) colisao = escalonamento(mat, neq, nco, cont);
-
+  // se chamar a swap de novo nao vai funcionar
   int flag = 0;
 
   if (mat[0][0].n == 0) {
@@ -111,7 +112,9 @@ int swap(coef** mat, int neq, int nco, int cont) {
       mat[flag][i].n = inst;
     }
   }
+
   colisao = escalonamento(mat, neq, nco, cont);
+
   if (colisao == 1) {
     return 1;
   } else {
@@ -120,66 +123,73 @@ int swap(coef** mat, int neq, int nco, int cont) {
 }
 
 coef** alocar_mat(char tipo, int neq, int nco) {
-  coef** point = NULL;
+  coef** pt = NULL;
   int mk;
 
   if (tipo == 'p') {
     mk = 1;
-    point = (coef**)malloc(neq * sizeof(coef*));
+    pt = (coef**)malloc(neq * sizeof(coef*));
+
     for (int i = 0; i < neq; i++) {
-      point[i] = (coef*)malloc(nco * sizeof(coef));
+      pt[i] = (coef*)malloc(nco * sizeof(coef));
     }
+
     for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &point[0][i].n, &point[0][i + 1].d);
+      scanf("%d %d ", &pt[0][i].n, &pt[0][i + 1].d);
     }
   } else {
     mk = 2;
-    point = (coef**)malloc(2 * sizeof(coef*));
+    pt = (coef**)malloc(2 * sizeof(coef*));
+
     for (int i = 0; i < neq; i++) {
-      point[i] = (coef*)malloc(nco * sizeof(coef));
+      pt[i] = (coef*)malloc(nco * sizeof(coef));
     }
+
     for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &point[0][i].n, &point[0][i + 1].d);
+      scanf("%d %d ", &pt[0][i].n, &pt[0][i + 1].d);
     }
+
     for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &point[1][i].n, &point[1][i + 1].d);
+      scanf("%d %d ", &pt[1][i].n, &pt[1][i + 1].d);
     }
   }
 
-  char tipo2 = scanf(" %c", &tipo2);
+  char t2 = scanf(" %c", &t2);
 
-  if (tipo2 == 'p') {
+  if (t2 == 'p') {
     for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &point[mk][i].n, &point[mk][i + 1].d);
+      scanf("%d %d ", &pt[mk][i].n, &pt[mk][i + 1].d);
     }
   } else {
     for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &point[mk][i].n, &point[mk][i + 1].d);
+      scanf("%d %d ", &pt[mk][i].n, &pt[mk][i + 1].d);
     }
+
     for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &point[mk + 1][i].n, &point[mk + 1][i + 1].d);
+      scanf("%d %d ", &pt[mk + 1][i].n, &pt[mk + 1][i + 1].d);
     }
   }
-  return point;
+  return pt;
 }
 
 int main(int argc, char const* argv[]) {
   int neq = scanf("%d", &neq);
   int nco = scanf("%d", &nco);
-  char tipo1;
+  char t1;
   int colisao, cont = 0;
 
   coef** mat = NULL;
 
-  tipo1 = scanf(" %c", &tipo1);
-  mat = alocar_mat(tipo1, neq, nco);
+  t1 = scanf(" %c", &t1);
+  mat = alocar_mat(t1, neq, nco);
 
   colisao = swap(mat, neq, nco, cont);
 
-  if (colisao == 1)
+  if (colisao == 1) {
     printf("sim\n");
-  else
+  } else {
     printf("nao\n");
+  }
 
   printa_mat(mat, neq, nco);
 
