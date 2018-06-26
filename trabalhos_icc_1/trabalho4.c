@@ -6,7 +6,7 @@ typedef struct {
   int d;
 } coef;
 
-void printa_mat(coef** mat, int neq, int nco, int colisao) {
+void printa_matriz(coef** mat, int neq, int nco, int colisao) {
   int aux1, aux2;
   for (int i = 0; i < neq; i++) {
     for (int j = 0; j < nco; j++) {
@@ -18,13 +18,13 @@ void printa_mat(coef** mat, int neq, int nco, int colisao) {
       }
     }
   }
-  
+
   if (colisao == 1) {
     printf("sim\n");
   } else {
     printf("nao\n");
   }
-  
+
   for (int i = 0; i < nco; i++) {
     for (int j = 0; j < neq; j++) {
       if (mat[i][j].d == 1) {
@@ -37,7 +37,7 @@ void printa_mat(coef** mat, int neq, int nco, int colisao) {
   }
 }
 
-void libera_memoria(coef** mat, int neq) {
+void libera_matriz(coef** mat, int neq) {
   for (int i = 0; i < neq; i++) {
     free(mat[i]);
   }
@@ -59,8 +59,8 @@ long mmc(int a, int b) {
 }
 //###########################################################//
 int escalonamento(coef** mat, int neq, int nco, int cont) {
-    
-  if (cont == neq) {
+	
+  if (cont == neq - 1) {
     if (mat[neq - 1][nco - 1].n != 0) {
       return 0;
     } else {
@@ -68,33 +68,34 @@ int escalonamento(coef** mat, int neq, int nco, int cont) {
     }
   }
   
+  coef x;
+  
   for (int i = cont; i < neq; i++) {
     for (int j = cont; j < nco; j++) {
 		
-      int a1 = mat[cont][cont].n;
-	  int a2= mat[cont][cont].d;
-	  int a3 = mat [cont][j].d;
-	  int a4 = mat[cont][j].n;
-	  int a5 = mat[i][j].d;
-	  int a6 = mat[i][j].n;
-	  int a7 = mat[i][cont].n;
-	  
-	  
-	  long aux = mmc(a2, a3);
-	  
-	  mat[i][j].n = ((a6*a1)*(a2*a4)) - ((a4*a5)*(a2*a7))/a5;
-    }
-  }
-
-  int aux1, aux2;
-  for (int i = 0; i < neq; i++) {
-    for (int j = 0; j < nco; j++) {
-      aux1 = mat[i][j].n;
-      aux2 = mat[i][j].d;
+      int a1 = mat[cont][cont].n; //pivo
+      int a2 = mat[cont][cont].d;
+      int a3 = mat[cont][j].d;//coef pivo
+      int a4 = mat[cont][j].n;
+      int a5 = mat[i][j].d;//coef sub
+      int a6 = mat[i][j].n;
+      int a7 = mat[i][cont].n;
+      int a8 = mat[i][cont].d;
+      
+      x.n = (a2*a7);
+      x.d = (a1*a8);
+      a1 = a1*x.n;
+      a2 = a1*x.d;      
+      
+      long aux = mmc(a3, a5);
+      mat[i][j].d = aux;
+      mat[i][j].n = (aux/a5)*a6;
+      mat[i][j].n -= (aux/a1)*a3;
     }
   }
 
   cont += 1;
+
   escalonamento(mat, neq, nco, cont);
   return 0;
 }
@@ -103,24 +104,24 @@ int swap(coef** mat, int neq, int nco) {
   int colisao, inst;
   int cont = 0;
   static int pivo = 0;
-  
+
   if (mat[pivo][pivo].n != 0) colisao = escalonamento(mat, neq, nco, cont);
-  
+
   int flag = 0;
 
   if (mat[pivo][pivo].n == 0) {
     do {
       flag += 1;
-    } while (mat[flag][0].n != 0);
+    } while (mat[flag][0].n == 0);
 
-    for (int i = 0; i < nco; i++) {
-      inst = mat[0][i].n;
-      mat[0][i].n = mat[flag][i].n;
+    for (int i = pivo; i < nco; i++) {
+      inst = mat[pivo][i].n;
+      mat[pivo][i].n = mat[flag][i].n;
       mat[flag][i].n = inst;
     }
   }
-  
-  pivo += 1;  
+
+  pivo += 1;
   cont = pivo;
   colisao = escalonamento(mat, neq, nco, cont);
 
@@ -131,72 +132,68 @@ int swap(coef** mat, int neq, int nco) {
   }
 }
 //###############################################//
-coef** alocar_mat(char tipo, int neq, int nco) {
-  coef** pt = NULL;
-  int mk;
-
-  if (tipo == 'p') {
-    mk = 1;
-    pt = (coef**)malloc(neq * sizeof(coef*));
-
-    for (int i = 0; i < neq; i++) {
-      pt[i] = (coef*)malloc(nco * sizeof(coef));
-    }
-
-    for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &pt[0][i].n, &pt[0][i].d);
-    }
-  } else {
-    mk = 2;
-    pt = (coef**)malloc(2 * sizeof(coef*));
-
-    for (int i = 0; i < neq; i++) {
-      pt[i] = (coef*)malloc(nco * sizeof(coef));
-    }
-
-    for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &pt[0][i].n, &pt[0][i].d);
-    }
-
-    for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &pt[1][i].n, &pt[1][i].d);
-    }
-  }
-
-  char t2 = scanf(" %c", &t2);
-
-  if (t2 == 'p') {
-    for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &pt[mk][i].n, &pt[mk][i].d);
-    }
-  } else {
-    for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &pt[mk][i].n, &pt[mk][i].d);
-    }
-
-    for (int i = 0; i < nco; i++) {
-      scanf("%d %d ", &pt[mk + 1][i].n, &pt[mk + 1][i].d);
-    }
-  }
-  return pt;
-}
-
 int main(int argc, char const* argv[]) {
-  int neq = scanf("%d", &neq);
-  int nco = scanf("%d", &nco);
-  char t1;
+  int neq, nco;
+  scanf("%d", &neq);
+  scanf("%d", &nco);
+
+  coef** mat = malloc(neq * sizeof(coef));
+  for (int i = 0; i < neq; i++) {
+    mat[i] = (coef*)malloc(nco * sizeof(coef));
+  }
+
+  char t1, t2;
+  scanf(" %c", &t1);
+
+  if (t1 == 'p') {
+    for (int i = 0; i < nco; i++) {
+      scanf("%d %d", &mat[0][i].n, &mat[0][i].d);
+    }
+    scanf(" %c", &t2);
+
+    if (t2 == 'p') {
+      for (int i = 0; i < nco; i++) {
+        scanf("%d %d", &mat[1][i].n, &mat[1][i].d);
+      }
+
+      if (t2 == 'r') {
+        for (int i = 1; i < 2; i++) {
+          for (int j = 0; j < nco; j++) {
+            scanf("%d %d", &mat[i][j].n, &mat[i][j].d);
+          }
+        }
+      }
+    }
+  }
+  if (t1 == 'r') {
+    for (int i = 1; i < 2; i++) {
+      for (int j = 0; j < nco; j++) {
+        scanf("%d %d", &mat[i][j].n, &mat[i][j].d);
+      }
+    }
+
+    if (t2 == 'p') {
+      for (int i = 0; i < nco; i++) {
+        scanf("%d %d", &mat[2][i].n, &mat[2][i].d);
+      }
+
+      if (t2 == 'r') {
+        for (int i = 2; i < 3; i++) {
+          for (int j = 0; j < nco; j++) {
+            scanf("%d %d", &mat[i][j].n, &mat[i][j].d);
+          }
+        }
+      }
+    }
+  }
+
   int colisao;
-
-  coef** mat;
-
-  t1 = scanf(" %c", &t1);
-  mat = alocar_mat(t1, neq, nco);
 
   colisao = swap(mat, neq, nco);
 
-  printa_mat(mat, neq, nco, colisao);
+  printa_matriz(mat, neq, nco, colisao);
 
-  libera_memoria(mat, neq);
+  libera_matriz(mat, neq);
 
   return EXIT_SUCCESS;
 }
