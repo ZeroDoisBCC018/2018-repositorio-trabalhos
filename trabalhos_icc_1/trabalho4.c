@@ -1,17 +1,27 @@
+// Escalonamento Gaussiano:
+// Este programa tenta calcular se ha colisao entre um plano e uma reta
+// dadas as suas equacoes, que sao escalonadas numa matriz.
+// Trabalho 4 de ICC 1 - Prof. Moacir Ponti - Entrega dia 25/06/2018
+// Joao Vitor Nascimento Villaca - ICMC/USP - NoUSP: 10724239
 #include <stdio.h>
 #include <stdlib.h>
 
+// definicao da struct dos coeficientes
 typedef struct {
-  int n;
-  int d;
+  int n;  // numerador
+  int d;  // denominador
 } coef;
 
+// esta funcao imprime a matriz, fazendo simplificacao dos coeficientes
 void printa_matriz(coef** mat, int neq, int nco, int colisao) {
   int aux1, aux2;
+
   for (int i = 0; i < neq; i++) {
     for (int j = 0; j < nco; j++) {
       aux1 = mat[i][j].n;
       aux2 = mat[i][j].d;
+
+      // checando se e' possivel simplificar:
       if (aux1 % aux2 == 0) {
         mat[i][j].n = aux1 / aux2;
         mat[i][j].d = 1;
@@ -37,6 +47,7 @@ void printa_matriz(coef** mat, int neq, int nco, int colisao) {
   }
 }
 
+// essa funcao libera a memoria da matriz alocada dinamicamente
 void libera_matriz(coef** mat, int neq) {
   for (int i = 0; i < neq; i++) {
     free(mat[i]);
@@ -44,62 +55,66 @@ void libera_matriz(coef** mat, int neq) {
   free(mat);
 }
 
-long mmc(int a, int b) {
-  long c, d, resto;
-  c = a;
-  d = b;
-
-  do {
-    resto = c % d;
-    c = d;
-    d = resto;
-  } while (resto != 0);
-
-  return (a * b) / c;
+// algoritmo que calcula o mmc entre dois numeros
+long int mmc(int x, int y) {
+  long int ememece;
+  if (x >= y)
+    ememece = x;
+  else
+    ememece = y;
+  while ((ememece % x) != 0 || (ememece % y) != 0) {
+    ememece++;
+  }
+  return ememece;
 }
-//###########################################################//
+
+// funcao de escalonamento
 int escalonamento(coef** mat, int neq, int nco, int cont) {
-	
+  // caso base: quando chega na ultima linha
   if (cont == neq - 1) {
+    // cada retorno depende do valor de 'd' na ultima linha
+    // determinando se ha colisao ou nao
     if (mat[neq - 1][nco - 1].n != 0) {
       return 0;
     } else {
       return 1;
     }
   }
-  
-  coef x;
-  
+
+  coef x, w;
+  int mmc1;
+
+  // algoritmo de escalonamento
   for (int i = cont; i < neq; i++) {
+    x.n = mat[i][cont].n * mat[cont][cont].d;
+    x.d = mat[i][cont].d * mat[cont][cont].n;
+
     for (int j = cont; j < nco; j++) {
-		
-      int a1 = mat[cont][cont].n; //pivo
-      int a2 = mat[cont][cont].d;
-      int a3 = mat[cont][j].d;//coef pivo
-      int a4 = mat[cont][j].n;
-      int a5 = mat[i][j].d;//coef sub
-      int a6 = mat[i][j].n;
-      int a7 = mat[i][cont].n;
-      int a8 = mat[i][cont].d;
-      
-      x.n = (a2*a7);
-      x.d = (a1*a8);
-      a1 = a1*x.n;
-      a2 = a1*x.d;      
-      
-      long aux = mmc(a3, a5);
-      mat[i][j].d = aux;
-      mat[i][j].n = (aux/a5)*a6;
-      mat[i][j].n -= (aux/a1)*a3;
+      w.n = x.n * mat[cont][j].n;
+      w.d = x.d * mat[cont][j].d;
+
+      // o mmc e' calculado para a subtracao ser realizada
+      // sem problemas
+      if (w.d == mat[i][j].d) {
+        mat[i][j].n -= w.n;
+      } else {
+        mmc1 = mmc(w.d, mat[i][j].d);
+        w.n = (mmc1 / w.d) * w.n;
+        w.n = mmc1;
+        mat[i][j].n = (mmc1 / mat[i][j].d) * mat[i][j].n;
+        mat[i][j].d = mmc1;
+        mat[i][j].n -= w.n;
+      }
     }
   }
-
+  // cont: variavel que conta o numero de escalonamentos
   cont += 1;
 
   escalonamento(mat, neq, nco, cont);
   return 0;
 }
 
+// funcao que realiza a troca entre duas linhas de uma matriz
 int swap(coef** mat, int neq, int nco) {
   int colisao, inst;
   int cont = 0;
@@ -109,11 +124,14 @@ int swap(coef** mat, int neq, int nco) {
 
   int flag = 0;
 
+  // este 'do while' procura a primeira linha cujo o primeiro elemento NAO e'
+  // zero
   if (mat[pivo][pivo].n == 0) {
     do {
       flag += 1;
-    } while (mat[flag][0].n == 0);
+    } while (mat[flag][0].n != 0);
 
+    // troca das linhas:
     for (int i = pivo; i < nco; i++) {
       inst = mat[pivo][i].n;
       mat[pivo][i].n = mat[flag][i].n;
@@ -121,6 +139,9 @@ int swap(coef** mat, int neq, int nco) {
     }
   }
 
+  // cont e pivo sao igualados para passar a posicao do pivo para a funcao swap
+  // ja que variaveis estaticas sao visiveis somente no escopo em que sao
+  // inicializadas
   pivo += 1;
   cont = pivo;
   colisao = escalonamento(mat, neq, nco, cont);
@@ -131,17 +152,21 @@ int swap(coef** mat, int neq, int nco) {
     return 0;
   }
 }
-//###############################################//
+
 int main(int argc, char const* argv[]) {
   int neq, nco;
+
+  // escaneando os numeros
   scanf("%d", &neq);
   scanf("%d", &nco);
 
+  // alocacao dinamica da matriz
   coef** mat = malloc(neq * sizeof(coef));
   for (int i = 0; i < neq; i++) {
     mat[i] = (coef*)malloc(nco * sizeof(coef));
   }
 
+  // escaneando os coeficientes para cada caso (reta e plano)
   char t1, t2;
   scanf(" %c", &t1);
 
@@ -189,6 +214,7 @@ int main(int argc, char const* argv[]) {
 
   int colisao;
 
+  // a colisao e' determinada pelo retorno "booleano" da funcao swap
   colisao = swap(mat, neq, nco);
 
   printa_matriz(mat, neq, nco, colisao);
