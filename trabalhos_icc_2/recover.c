@@ -4,8 +4,9 @@
 
 void* jpg_recover(FILE* f, int count){
 	char n[7];
-	sprintf
-	fopen(, wb);
+	sprintf(n, "%3d.jpg", count);
+	fopen(n, wb);
+	fwrite
 }
 
 int main(void){
@@ -18,7 +19,8 @@ int main(void){
 		scanf("%c", &dump);
 		if(dump == '0xff'){
 			do{
-				for(int i = 0; i<512; i++){
+				img[0] = dump;
+				for(int i = 1; i<512; i++){
 					scanf("%c", &img[i]);
 				}
 					jpg_recover(fp, count);
