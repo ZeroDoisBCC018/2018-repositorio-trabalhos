@@ -3,20 +3,16 @@
 #include <string.h>
 
 int main(void) {
-  int count = 0, r;
+  int r, count = 0;
+  char img[512], p_name[8];
   FILE* fp = NULL;
-  char p_name[8], img[512];
 
   do {
     r = scanf("%512c", img);
 
-    if (r == EOF) break;
-
     if (img[0] == 0xff && img[1] == 0xd8 && img[2] == 0xff) {
-      if (fp != NULL) fclose(fp);
-
       sprintf(p_name, "%03d.jpg", count);
-      count++;
+      count += 1;
       fp = fopen(p_name, "wb");
 
       if (fp != NULL) {
@@ -25,12 +21,10 @@ int main(void) {
     }
   } while (r != EOF);
 
-  if (fp == NULL) {
-    printf("Could not find pictures\n");
-  }
-
   if (fp != NULL) {
     fclose(fp);
+  } else {
+    printf("Could not find pictures\n");
   }
 
   return EXIT_SUCCESS;
