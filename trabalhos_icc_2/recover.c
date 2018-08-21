@@ -2,35 +2,36 @@
 #include <stdlib.h>
 #include <string.h>
 
-void* jpg_recover(FILE* f, int count) {
-  char n[7];
-  sprintf(n, "%3d.jpg", count);
-  fopen(n, wb);
-  fwrite
-}
-
 int main(void) {
-  int count = 0;
+  int count = 0, r;
   FILE* fp = NULL;
-  unsigned char dump, img[512];
+  char p_name[8], img[512];
 
   do {
-    scanf("%c", &dump);
-    if (dump == '0xff') {
-      scanf("%c", &dump);
-      if (dump == '0xd8') {
-		img[0] = '0xff';
-        img[1] = dump;
+    r = scanf("%512c", img);
 
-        do {
-          while(){
-            scanf("%c", &img[i]);
-          }
-          jpg_recover(fp, count);
-          count++;
-        } while (scanf(stdin) != EOF);
+    if (r == EOF) break;
+
+    if (img[0] == 0xff && img[1] == 0xd8 && img[2] == 0xff) {
+      if (fp != NULL) fclose(fp);
+
+      sprintf(p_name, "%03d.jpg", count);
+      count++;
+      fp = fopen(p_name, "wb");
+
+      if (fp != NULL) {
+        fwrite(img, 512, sizeof(char), fp);
       }
     }
-  } while (scanf(stdin) != EOF);
+  } while (r != EOF);
+
+  if (fp == NULL) {
+    printf("Could not find pictures\n");
+  }
+
+  if (fp != NULL) {
+    fclose(fp);
+  }
+
   return EXIT_SUCCESS;
 }
