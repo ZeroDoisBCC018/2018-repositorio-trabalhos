@@ -2,30 +2,39 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(void) {
-  int r, s = -1, count = 0;
-  char img[512], p_name[8];
-  FILE* fp = NULL;
+int main(void)
+{
+    int count = 0;
+    unsigned char img[512];
+    char p_name[8];
+    FILE* fp = NULL;
 
-  do {
-    r = scanf("%512c", img);
-//nao ta entrando nesse if
-    if (img[0] == 0xff && img[1] == 0xd8 && img[2] == 0xff) {
-      sprintf(p_name, "%03d.jpg", count);
-      count += 1;
-      fp = fopen(p_name, "wb");
+    while (fread(img, sizeof(unsigned char), 512, stdin)) {
 
-      if (fp != NULL) {
-        fwrite(img, 512, sizeof(char), fp);
-      }
-      s = fclose(fp);
-      fp = NULL;
+        if (img[0] == 0xff && img[1] == 0xd8 && img[2] == 0xff && count == 0) {
+            sprintf(p_name, "%03d.jpg", count);
+            count++;
+            fp = fopen(p_name, "wb");
+
+            if (fp != NULL) {
+                fwrite(img, 1, 512, fp);
+            }
+        }
+        else if (img[0] == 0xff && img[1] == 0xd8 && img[2] == 0xff) {
+            fclose(fp);
+            sprintf(p_name, "%03d.jpg", count);
+            count++;
+            fp = fopen(p_name, "wb");
+            fwrite(img, 1, 512, fp);
+        }
+        else if (count == 0) {
+            printf("Could not find pictures\n");
+            break;
+        }
+        else {
+            fwrite(img, 1, 512, fp);
+        }
     }
-  } while (r != EOF);
 
-  if (s == -1) {
-    printf("Could not find pictures\n");
-  }
-
-  return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
