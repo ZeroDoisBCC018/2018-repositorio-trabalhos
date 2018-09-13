@@ -1,3 +1,9 @@
+/* k-Nearest Neighbours
+ * Este programa tenta classificar flores usando o algoritmo de 
+ * aprendizado de maquina k-Nearest Neighbours.
+ * Trabalho 2 de ICC-II - Prof. Moacir Ponti - Entrega dia 12/00/2018
+ * Joao Vitor Nascimento Villaca - ICMC/USP - NoUSP: 10724239 */
+
 #define _GNU_SOURCE
 #include <stddef.h>
 #include <stdio.h>
@@ -23,22 +29,38 @@ struct DistanciaEuclidiana {
   char* Classe;
 };
 
+/* Funcao que libera os ponteiros (strings) de classe
+ * que estao na estrutura Atributos.
+ * Parametros:
+ * 	EXEMPLO a[MAX] - vetor com os Atributos de cada exemplo
+ * 	int n - numero de exemplos
+ * Retorno: void */
 void FREE_CLASSE(EXEMPLO a[MAX], int n) {
   for (int i = 0; i < n; i++) {
     free(a[i].Classe);
   }
 }
 
-int FILE_CHECK(FILE* p, char* fname) {
+/* Funcao que checa se os arquivos foram abertos corretamente.
+ * Feita exclusivamente com intencao de debugar o codigo.
+ * Parametros:
+ * 	FILE* p - ponteiro para o arquivo a ser verificado
+ * 	char* fname - string com o nome do arquivo
+ * Retorno: void */
+void FILE_CHECK(FILE* p, char* fname) {
   if (p == NULL) {
     fprintf(stderr, "NULL fopen return: such file do not exist/allocation error\n");
     fprintf(stdout, "Trying to open: ");
     fputs(fname, stdout);
     exit(EXIT_FAILURE);
   }
-  return 1;
 }
 
+/* Funcao que ordena as distancias dos exemplos dados.
+ * Parametros:
+ * 	DIST v[MAX] - vetor com as distancias euclidianas
+ * 	int tam - tamanho do vetor (numero de exemplos)
+ * Retorno: void */
 void INSERTION_SORT(DIST v[MAX], int tam) {
   float aux;
   int i, j;
@@ -51,33 +73,39 @@ void INSERTION_SORT(DIST v[MAX], int tam) {
   }
 }
 
+/* Funcao que concede atributos aos exemplos baseado
+ * no arquivo .csv que o programa recebe.
+ * Parametros:
+ * 	FILE* csv - ponteiro para o arquivo .csv com os atributos
+ * 	EXEMPLO ex[MAX] - vetor com os exemplos que receberao atributos
+ * Retorno: void */
 void EXEMPLO_ATRIBUIR(FILE* csv, EXEMPLO ex[MAX]) {
   static char TiraVirgula;
   static int n = 0;
-  float atr;
+  char atr[4], cl[20];
+  atr[3] = '\0';
 
-  ex[n].SL = fscanf(csv, "%3f", &atr);
+  fgets(atr, 3, csv);
+  ex[n].SL = atof(atr);
   TiraVirgula = fgetc(csv);
 
-  ex[n].SW = fscanf(csv, "%3f", &atr);
+  fgets(atr, 3, csv);
+  ex[n].SW = atof(atr);
   TiraVirgula = fgetc(csv);
 
-  ex[n].PL = fscanf(csv, "%3f", &atr);
+  fgets(atr, 3, csv);
+  ex[n].PL = atof(atr);
   TiraVirgula = fgetc(csv);
 
-  ex[n].PW = fscanf(csv, "%3f", &atr);
+  fgets(atr, 3, csv);
+  ex[n].PW = atof(atr);
   TiraVirgula = fgetc(csv);
-
-  fscanf(csv, "\"%m[^\"]\"", &ex[n].Classe);
-
-  size_t str = strlen(ex[n].Classe);
-  for (int i = 0; i < (str - 1); i++) {
-    ex[n].Classe[i] = ex[n].Classe[i + 1];
-  }
-  ex[n].Classe[str - 1] = '\0';
+  
+  fgets(cl, 20, csv);
+  strcpy(ex[n].Classe, cl);
 
   n++;
-  TiraVirgula++;
+  TiraVirgula--;
 }
 
 int main() {
@@ -94,42 +122,51 @@ int main() {
   fp2 = fopen(ArquivoNomeB, "r");
   FILE_CHECK(fp2, ArquivoNomeB);
 
-  char PrimeiraLinha = 'q';
   EXEMPLO VetorTest[MAX];
   EXEMPLO VetorEx[MAX];
+  char PrimeiraLinha = 'q';
   int numex = 0, numtest = 0;
 
   while (PrimeiraLinha != '\n') {
     PrimeiraLinha = fgetc(fp1);
   }
 
-  do {
+  while (1) {
     EXEMPLO_ATRIBUIR(fp1, VetorEx);
     numex++;
-  } while (feof(fp1));
+    if (feof(fp1)) {
+      break;
+    }
+  }
   fclose(fp1);
 
+  //verificar se o k e invalido
+  //i.e., negativo ou maior que o numero de exemplos
   if (k < 1 || k > numex) {
     fprintf(stdout, "k is invalid\n");
     fcloseall();
     return 0;
   }
 
-  PrimeiraLinha = 'q';
   while (PrimeiraLinha != '\n') {
-    PrimeiraLinha = fgetc(fp2);
+    PrimeiraLinha = fgetc(fp1);
   }
 
-  do {
-    EXEMPLO_ATRIBUIR(fp2, VetorTest);
-    numtest++;
-  } while (feof(fp2));
+  while (1) {
+    EXEMPLO_ATRIBUIR(fp1, VetorEx);
+    numex++;
+    if (feof(fp1)) {
+      break;
+    }
+  }
   fclose(fp2);
 
   int distancia, versicolors, virginicas, setosas, acertos;
   DIST VetorDist[MAX];
-  char ClasseOriginal[10];
+  char ClasseOriginal[15];
 
+  /* Calculo das distancias euclidianas, seguido do armazenamento
+   * da classe original do arquivo de teste*/
   for (int i = 0; i < numex; i++) {
     for (int j = 0; j < numtest; j++) {
       distancia = pow((VetorEx[j].SL - VetorTest[i].SL), 2) +
@@ -140,24 +177,30 @@ int main() {
       strcpy(VetorDist[j].Classe, VetorEx[j].Classe);
     }
 
+    //ordenacao das distancias euclidianas
     INSERTION_SORT(VetorDist, numex);
 
     versicolors = 0;
     virginicas = 0;
     setosas = 0;
 
+    /*contagem do numero de flores para fazer o calculo do acerto
+     *no fim do programa */
     for (int w = 0; w < k; w++) {
-      if (strcmp(VetorDist[i].Classe, "versicolor")) {
+      if (strcmp(VetorDist[i].Classe, "\"versicolor\"")) {
         versicolors += 1;
-      } else if (strcmp(VetorDist[i].Classe, "virginica")) {
+        strcpy(ClasseOriginal, "versicolor");
+      } else if (strcmp(VetorDist[i].Classe, "\"virginica\"")) {
         virginicas += 1;
-      } else if (strcmp(VetorDist[i].Classe, "setosa")) {
+        strcpy(ClasseOriginal, "virginica");
+      } else if (strcmp(VetorDist[i].Classe, "\"setosa\"")) {
         setosas += 1;
+        strcpy(ClasseOriginal, "setosa");
       }
     }
-
-    strcpy(ClasseOriginal, VetorTest[i].Classe);
-
+    
+    /* comparacao entre o numero de flores por classe
+     * e saida do resultado da estimativa k-NN */
     if ((versicolors > virginicas) && (versicolors > setosas)) {
       fprintf(stdout, "versicolor ");
       fputs(ClasseOriginal, stdout);
@@ -171,6 +214,9 @@ int main() {
       fputs(ClasseOriginal, stdout);
       if (strcmp(ClasseOriginal, "setosa")) acertos++;
     }
+    
+    /* variaveis zeradas para nao afetar o for() da contagem
+     * do numero de flores */
     versicolors = 0;
     virginicas = 0;
     setosas = 0;
@@ -179,6 +225,8 @@ int main() {
   fprintf(stdout, "%.04f\n", ((float)acertos / (float)numex));
 
   fcloseall();
+  free(fp1);
+  free(fp2);
   free(ArquivoNomeA);
   free(ArquivoNomeB);
   FREE_CLASSE(VetorEx, numex);
