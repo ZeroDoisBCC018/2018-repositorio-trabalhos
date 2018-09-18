@@ -10,4 +10,3 @@ struct site_ {
 	char* link;
 	char** keyw;
 }
-asdasdasdas
