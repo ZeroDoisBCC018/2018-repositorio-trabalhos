@@ -1,5 +1,5 @@
 struct node_ {
-	SITE site;
+	SITE* site; //TA EM OUTRO SEGMENTO, ACHO QUE PRECISA SER PONTEIRO (02)
 	NODE* next; 
 }node_;
 
@@ -9,14 +9,14 @@ struct list_ {
 	int size;
 }list_;
 
-void SortList(LIST* l){ //FAZER
+void SortList(LIST* l){ //TODO
 }
 
-int SearchCode(LIST* l){//FAZER
+int SearchCode(LIST* l){//TODO
 	
 }
 
-int InsertSite(LIST* l){ //FAZER
+int InsertSite(LIST* l){ //TODO
 	
 }
 LIST CreateList(void){
@@ -56,19 +56,7 @@ void EraseList (LIST* l)
 //Remove@Pos
 //CountList
 
-/*void PrintList (int size, LIST l)
-{
-	int i;
-	NODE* aux;	
-	aux = l->first;
-	
-	for (i = 0; i < size; i++)
-	{
-		printf("
-	}
-}*/
-
-int UpdateRelevance(LIST* l, int code){
+int UpdateRelevance(LIST* l, int code){ //acho que da prafazer sem passar o code (02)
 	if (CheckEmptyList == 1) return ERROR;
 	if (code < 0 || code > 1000) return ERROR;
 	NODE* aux;
