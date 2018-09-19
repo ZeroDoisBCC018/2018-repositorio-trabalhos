@@ -20,11 +20,18 @@ LIST CreateList(void){
 	return l;
 }
 
-//EraseList
+void EraseList (LIST l)
+{
+	NODE* aux;
+	if (l->next == NULL) return 1;
+	else
+	{
+		aux = 
+}
 //InsertFistPos
 //InsertLastPos
-//InsertAtPos
-//RemoveAtPos
+//Insert@Pos
+//Remove@Pos
 //CountList
 
 /*void PrintList (int size, LIST l)

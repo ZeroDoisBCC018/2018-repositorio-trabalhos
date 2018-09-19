@@ -9,4 +9,4 @@ struct site_ {
 	int relev;
 	char* link;
 	char keyw[10][50];
-}
+};
