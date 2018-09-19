@@ -14,20 +14,27 @@ void SortList(LIST l){
 
 LIST CreateList(void){
 	LIST l;
-	l->fist = NULL;
+	l->first = NULL;
 	l->last = NULL;
 	l->size = 0;
 	return l;
 }
 
-void EraseList (LIST l)
+void EraseList (LIST* l)
 {
-	NODE* aux;
-	if (l->next == NULL) return 1;
-	else
-	{
-		aux = 
+	if (CheckEmptyList == 1) return ERROR;
+	NODE* aux1, aux2;
+	aux1 = l->first;
+	while (aux1 != NULL){
+		aux2 = aux1->next;
+		free(aux1);
+		aux1 = aux2;
+	}
+	l->first = NULL;
+	if (CheckEmptyList == 1) return 0;
+	else return ERROR;
 }
+
 //InsertFistPos
 //InsertLastPos
 //Insert@Pos
