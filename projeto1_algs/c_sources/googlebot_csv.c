@@ -20,7 +20,7 @@ CSV gb_openCSV (CSV fp, char* filename){
 	fp = fopen(filename, "r+");
 	
 	if(fp == NULL){
-		perror("Memmory allocation error/file can't be opened.\n");
+		perror("Memory allocation error/file can't be opened.\n");
 		exit(EXIT_FAILURE);
 	}
 	
@@ -29,18 +29,29 @@ CSV gb_openCSV (CSV fp, char* filename){
 
 void* gb_readCSV (CSV fp, OBJ o){
 	
-	char* str;
+	int i = 0, j = 0;
+	char dump = ' '; // dump is initialized as blank space so it certainly enters the reading loop on line x
+	
 	if(fp == NULL){
 		perror("File not opened.\n");
+		exit(EXIT_FAILURE);
 	}
 	
 	fseek(fp, 0, SEEK_SET);
 	
-	/* brunao */
-	
 	do{
-		fscanf(fp, "%d,%m[^,],%d,%m[^,]", &OBJ->code, OBJ->name, &OBJ->relev, OBJ->link);
-		//fscanf(fp, 
+		fscanf(fp, "%d,%m[^,],%d,%m[^,],", &OBJ->code, OBJ->name, &OBJ->relev, OBJ->link);
+		
+		while (dump != '\n'){
+			dump = fgetc(fp);
+			OBJ->keyw[][] = dump;
+			
+			j++;
+			if(dump == ','){
+				 i++;
+				 j = 0;
+			}
+		}
 	}while(!feof(fp));
 	
 }
