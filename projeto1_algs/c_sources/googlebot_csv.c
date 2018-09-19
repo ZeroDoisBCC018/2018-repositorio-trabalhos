@@ -14,6 +14,7 @@ CSV gb_openCSV (CSV fp, char* filename){
 		fprintf(stdout, "Instructions on how to use GBSiteRelevance:\n");
 		fprintf(stdout, "On console command line, type: ");
 		fprintf(stdout, "./GBSiteRelevance <csv_file>\n");
+		exit(EXIT_FAILURE);
 	}
 	
 	fp = fopen(filename, "r+");
