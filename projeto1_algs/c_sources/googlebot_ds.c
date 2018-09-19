@@ -8,5 +8,5 @@ struct site_ {
 	char* name;
 	int relev;
 	char* link;
-	char** keyw;
+	char keyw[10][50];
 }
