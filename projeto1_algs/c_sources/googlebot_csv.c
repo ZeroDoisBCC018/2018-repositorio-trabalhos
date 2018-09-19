@@ -44,7 +44,7 @@ void* gb_readCSV (CSV fp, OBJ o){
 		
 		while (dump != '\n'){
 			dump = fgetc(fp);
-			OBJ->keyw[][] = dump;
+			OBJ->keyw[i][j] = dump;
 			
 			j++;
 			if(dump == ','){
