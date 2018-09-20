@@ -1,24 +1,20 @@
+#define ERROR -32000
+#define SUCCESS 1
+
 struct node_ {
-	SITE* site; //TA EM OUTRO SEGMENTO, ACHO QUE PRECISA SER PONTEIRO (02)
+	SITE site;
 	NODE* next; 
-}node_;
+}
 
 struct list_ {
 	NODE* first;
 	NODE* last;
 	int size;
-}list_;
-
-void SortList(LIST* l){ //TODO
 }
 
-int SearchCode(LIST* l){//TODO
-	
+void SortList(LIST l){
 }
 
-int InsertSite(LIST* l){ //TODO
-	
-}
 LIST CreateList(void){
 	LIST l;
 	l->first = NULL;
@@ -27,15 +23,7 @@ LIST CreateList(void){
 	return l;
 }
 
-int CheckEmptyList(NODE* first){
-	return (first == NULL) ? 1 : 0;
-}
-
-int CheckInvalidSize(LIST* l){ // this functions as both maximum size check and invalid (negative) size check
-	return (l->size > 9999 || l->size < 0) ? 1 : 0;
-}
-
-void EraseList (LIST* l)
+int EraseList (LIST* l)
 {
 	if (CheckEmptyList == 1) return ERROR;
 	NODE* aux1, aux2;
@@ -50,25 +38,65 @@ void EraseList (LIST* l)
 	else return ERROR;
 }
 
-//InsertFistPos
-//InsertLastPos
+int InsertFirstPos (LIST* l, NODE* n)
+{
+		if (CheckInvalidSize(l) == 1) return ERROR;
+		else if (l->size == 0) {
+			l->first = n;
+			l->last = n;
+			size++;
+		} else {
+		
+		NODE* aux;
+		
+		aux = l->first;
+		l->first = n;
+		n->next = aux;
+		aux = NULL;
+		free(aux);
+		
+		l->size++;
+		if (CheckInvalidSize(l) == 1) return ERROR;
+	}
+		
+		return SUCCESS;
+}
+
+int InsertLastPos (LIST* l, NODE* n) // TODO: FAZER TODAS AS ALOCAÇÕES!!!!1!!1!1!!
+{
+		if (CheckEmptyList == 1) return ERROR;
+		else if (l->size == 0) {
+			l->first = n;
+			l->last = n;
+			size++;
+		} else {
+		
+		l->last->next = n;
+		l->last = n;
+		n->next = NULL;
+		size++;
+		if (CheckInvalidSize(l) == 1) return ERROR;
+		return SUCCESS;
+}
 //Insert@Pos
 //Remove@Pos
-//CountList
+int CountList (LIST* l, NODE* f) // especificar que deve receber o list->first
+{
+	 static int i = 0;
+	 l->size = i;
+	 if (l->next == NULL)
+	 {
+		 l->size++;
+		 return 1;
+	 }
+	 
+	 else return (CountList (l, f->next);
+}
 
-int UpdateRelevance(LIST* l, int code){ //acho que da prafazer sem passar o code (02)
-	if (CheckEmptyList == 1) return ERROR;
-	if (code < 0 || code > 1000) return ERROR;
-	NODE* aux;
-	aux = l->first;
-	int newrel, check = 0;
-	for (int i = 0; i < l->size; i++){
-		if(aux->site->code == code){
-			scanf("%d", &newrel);
-			aux->site->code = newrel;
-			check = 1;
-		}
-	}
-	if (check != 1) return ERROR;
-	else return 0;
+int CheckEmptyList(NODE* first){
+	return (first == NULL) ? 1 : 0;
+}
+
+int CheckInvalidSize(LIST l){ // this functions as both maximum size check and invalid (negative) size check
+	return (l->size > 9999 || l->size < 0) ? 1 : 0;
 }
