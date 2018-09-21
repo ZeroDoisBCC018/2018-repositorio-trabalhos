@@ -13,25 +13,11 @@ struct list_ {
 };
 
 LIST* GB_CreateList(void){
-	LIST* l;
+	LIST* l = (LIST*) malloc(sizeof(LIST));
 	l->first = NULL;
 	l->last = NULL;
 	l->size = 0;
 	return l;
-}
-
-void GB_EraseList (LIST* l){
-	if (CheckEmptyList == 1) return ERROR;
-	NODE* aux1, aux2;
-	aux1 = l->first;
-	while (aux1 != NULL){
-		aux2 = aux1->next;
-		free(aux1);
-		aux1 = aux2;
-	}
-	l->first = NULL;
-	if (CheckEmptyList == 1) return 0;
-	else return ERROR;
 }
 
 int GB_CheckEmptyList(LIST* l){
@@ -42,45 +28,64 @@ int GB_CheckInvalidList(LIST* l){
 	return ((l->size > 9999 || l->size < 0) ? 1 : 0);
 }
 
+void GB_EraseList (LIST* l){
+	if (GB_CheckEmptyList(l) == 1) return ERROR;
+	if (GB_CheckInvalidList(l) == 1) return ERROR;
+	NODE* aux1, aux2;
+	aux1 = l->first;
+	while (aux1 != NULL){
+		aux2 = aux1->next;
+		free(aux1);
+		aux1 = aux2;
+	}
+	l->first = NULL;
+	if (GB_CheckEmptyList == 1) return 0;
+	else return ERROR;
+}
+
 int InsertFirstPos (LIST* l, NODE* n){
-		if (CheckInvalidSize(l) == 1) return ERROR;
-		else if (l->size == 0) {
-			l->first = n;
-			l->last = n;
-			size++;
-		} else {
-		
-		NODE* aux;
-		
-		aux = l->first;
+	if (GB_CheckEmptyList(l) == 1) return ERROR;
+	if (GB_CheckInvalidList(l) == 1) return ERROR;
+	else if (l->size == 0) {
 		l->first = n;
-		n->next = aux;
-		aux = NULL;
-		free(aux);
-		
-		l->size++;
-		if (CheckInvalidSize(l) == 1) return ERROR;
-		}
-		return SUCCESS;
+		l->last = n;
+		size++;
+	} else {
+
+	NODE* aux;
+
+	aux = l->first;
+	l->first = n;
+	n->next = aux;
+	aux = NULL;
+	free(aux);
+
+	l->size++;
+	if (GB_CheckEmptyList(l) == 1) return ERROR;
+	}
+	return SUCCESS;
 }
 
 int InsertLastPos (LIST* l, NODE* n){
-		if (CheckEmptyList == 1) return ERROR;
-		else if (l->size == 0) {
-			l->first = n;
-			l->last = n;
-			size++;
-		} else {
-		
-		l->last->next = n;
+	if (GB_CheckEmptyList(l) == 1) return ERROR;
+	if (GB_CheckInvalidList(l) == 1) return ERROR;
+	else if (l->size == 0) {
+		l->first = n;
 		l->last = n;
-		n->next = NULL;
 		size++;
-		if (CheckInvalidSize(l) == 1) return ERROR;
-		return SUCCESS;
+	} else {
+
+	l->last->next = n;
+	l->last = n;
+	n->next = NULL;
+	size++;
+	if (GB_CheckEmptyList(l) == 1) return ERROR;
+	return SUCCESS;
 }
 
 int CountList (LIST* l){
+	if (GB_CheckEmptyList(l) == 1) return ERROR;
+	if (GB_CheckInvalidList(l) == 1) return ERROR;
 	 static int i = 0;
 	 l->size = i;
 	 if (l->next == NULL){
@@ -91,9 +96,11 @@ int CountList (LIST* l){
 }
 
 int GB_SearchCode(LIST* l, int code){
-	int aux = l->first;
+	if (GB_CheckEmptyList(l) == 1) return ERROR;
+	if (GB_CheckInvalidList(l) == 1) return ERROR;
+	NODE* aux = l->first;
 	int c = aux->site->code;
-	while(c != code || aux = l->last){
+	while(c != code || aux != l->last){
 		aux = aux->next;
 		c = aux->site->code; 
 	}
@@ -105,15 +112,16 @@ void GB_SortList(LIST* l){ TODO
 }
 
 /* REVER */
-int GB_UpdateRelevance(LIST* l, int code){
-	if (CheckEmptyList == 1) return ERROR;
+int GB_UpdateRelevance(LIST* l, int code, int newrel){
+	if (GB_CheckEmptyList(l) == 1) return ERROR;
+	if (GB_CheckInvalidList(l) == 1) return ERROR;
 	if (code < 0 || code > 1000) return ERROR;
 	NODE* aux;
 	aux = l->first;
-	int newrel, check = 0, i;
+	int check = 0;
+	int i = 0;
 	for (i = 0; i < l->size; i++){
 		if(aux->site->code == code){
-			scanf("%d", &newrel);
 			aux->site->code = newrel;
 			check = 1;
 		}
@@ -122,5 +130,15 @@ int GB_UpdateRelevance(LIST* l, int code){
 	else return 0;
 }
 
-//Insert@Pos
+/*int InsertAtPosition(LIST* l, int code){
+	if (GB_CheckEmptyList(l) == 1) return ERROR;
+	if (GB_CheckInvalidList(l) == 1) return ERROR;
+	NODE* aux;
+	aux = l->first;
+	int count = 0;
+	while (count < code){
+		aux = aux->next;
+		count++;
+	}*/
+}		      
 //Remove@Pos
