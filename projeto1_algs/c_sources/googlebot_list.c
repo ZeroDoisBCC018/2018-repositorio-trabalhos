@@ -1,5 +1,3 @@
-#ifndef GOOGLEBOTLISTS_H
-#define GOOGLEBOTLISTS_H
 #define ERROR -404
 #define SUCCESS 1
 #define TRUE 1
@@ -140,4 +138,3 @@ int InsertNode@Position(LIST* l, int code){
 	return count;
 }
 */
-#endif
