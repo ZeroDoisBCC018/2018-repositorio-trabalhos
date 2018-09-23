@@ -18,7 +18,14 @@ struct list_ {
     int size;
 };
 
-LIST* GB_CreateList(void) {
+NODE* GB_NewNode(void) {
+	NODE* new = (NODE*)malloc(sizeof(NODE));
+	new->next = NULL;
+	new->site = NULL;
+	return new;
+}
+
+LIST* GB_NewList(void) {
     LIST* l = (LIST*) malloc(sizeof(LIST));
     l->first = NULL;
     l->last = NULL;
