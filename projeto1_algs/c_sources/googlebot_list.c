@@ -48,7 +48,7 @@ int GB_EraseList(LIST* l) {
     return SUCCESS;
 }
 
-int GB_InsertNode@First(LIST* l) {
+int GB_InsertNodeFirstPos(LIST* l) {
     if (GB_CheckInvalidList(l)) return ERROR;
     if (GB_CheckEmptyList(l)) {
         NODE* new = (NODE*) malloc(sizeof(NODE));
@@ -68,7 +68,7 @@ int GB_InsertNode@First(LIST* l) {
     return SUCCESS;
 }
 
-int GB_InsertNode@Last(LIST* l, NODE* n) {
+int GB_InsertNodeLastPos(LIST* l, NODE* n) {
     if (GB_CheckInvalidList(l)) return ERROR;
     else if (GB_CheckEmptyList(l)) {
         l->first = n;
