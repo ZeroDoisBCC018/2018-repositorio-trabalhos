@@ -19,36 +19,45 @@ struct list_ {
     int size;
 };
 
-NODE* GB_NewNode(void) {
-	NODE* new = (NODE*)malloc(sizeof(NODE));
+NODE* GB_NewNode (void) {
+	NODE* new = (NODE*) malloc(sizeof (NODE));
 	new->next = NULL;
 	new->site = NULL;
 	return new;
 }
 
-LIST* GB_NewList(void) {
-    LIST* l = (LIST*) malloc(sizeof(LIST));
+LIST* GB_NewList (void) {
+    LIST* l = (LIST*) malloc(sizeof (LIST));
     l->first = NULL;
     l->last = NULL;
     l->size = 0;
     return l;
 }
 
-boolean GB_CheckEmptyList(LIST* l) {
+boolean GB_CheckEmptyList (LIST* l) {
     return (l->size == 0 ? TRUE : FALSE);
 }
 
-boolean GB_CheckInvalidList(LIST* l) {
+boolean GB_CheckInvalidList (LIST* l) {
     return ((l->size > 9999 || l-> size < 0) ? TRUE : FALSE);
 }
 
-int GB_CountListSize(LIST* l) { /*TODO, a versao anterior nao fazia sentido algum (02)*/
+int GB_CountListSize (LIST* l) { 
+	if (l == NULL) return ERROR;
+	NODE* aux = l->first;
+	int count = 0;
+	while (aux != NULL){
+		count++;
+	}
+	l->size = count;
+	if (GB_CheckInvalidList(l)) return ERROR;
+	return count;
 }
 
-void GB_SortList(LIST* l) { /*TODO*/ 
+void GB_SortList (LIST* l) { /*TODO*/ 
 }
 
-int GB_InsertNodeFirstPos(LIST* l, NODE* new) {
+int GB_InsertNodeFirstPos (LIST* l, NODE* new) {
     if (GB_CheckInvalidList(l)) return ERROR;
     if (GB_CheckEmptyList(l)) {
         l->first = new;
@@ -66,7 +75,7 @@ int GB_InsertNodeFirstPos(LIST* l, NODE* new) {
     return SUCCESS;
 }
 
-int GB_InsertNodeLastPos(LIST* l, NODE* n) {
+int GB_InsertNodeLastPos (LIST* l, NODE* n) {
     if (GB_CheckInvalidList(l)) return ERROR;
     else if (GB_CheckEmptyList(l)) {
         l->first = n;
@@ -83,7 +92,7 @@ int GB_InsertNodeLastPos(LIST* l, NODE* n) {
     }
 }
 
-int InsertNodeAtPosition(LIST* l, NODE* n, int code){
+int InsertNodeAtPosition (LIST* l, NODE* n, int code){
 	if (GB_CheckInvalidList(l)) return ERROR;
 	if (n == NULL) n = GB_NewNode;
 	if (GB_CheckEmptyList(l)) {
@@ -112,7 +121,7 @@ int InsertNodeAtPosition(LIST* l, NODE* n, int code){
 	return SUCCESS;
 }
 
-int GB_SearchCode(LIST* l, int code) {
+int GB_SearchCode (LIST* l, int code) {
 	if (GB_CheckEmptyList(l)) return ERROR;
 	else if (GB_CheckInvalidList(l)) return ERROR;
 	else {
@@ -128,7 +137,7 @@ int GB_SearchCode(LIST* l, int code) {
 }
 
 /* REVER */
-int GB_UpdateRelevance(LIST* l, int code, int newrel) {
+int GB_UpdateRelevance (LIST* l, int code, int newrel) {
 	if (GB_CheckEmptyList(l)) return ERROR;
 	else if (GB_CheckInvalidList(l)) return ERROR;
 	else if (code < 0 || code > 1000) return ERROR;
@@ -146,7 +155,7 @@ int GB_UpdateRelevance(LIST* l, int code, int newrel) {
 	else return 0;
 }
 
-int GB_EraseList(LIST* l) {
+int GB_EraseList (LIST* l) {
     NODE* aux1, aux2;
     aux1 = l->first;
     while (aux1 != NULL) {
