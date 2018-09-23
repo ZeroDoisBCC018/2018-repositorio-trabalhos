@@ -1,61 +1,61 @@
-
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "googlebot_ds.h"
+#define ERROR -404
+#define SUCCESS 1
 #define TRUE 1
 #define FALSE 0
+#include <stddef.h> 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "googlebot_ds.h"
+#include "googlebot_lists.h"
 
 typedef FILE* CSV;
-typedef SITE* OBJ;
 
-
-int gb_CodeCheck (int code, OBJ array){
+int GB_CodeCheck (int code, SITE* array){
 	//vamos comparar o 'code' com todos os anteriores do vetor antes de inseri-lo neste
 	//precisaremos de um contador de quantas structs ja foram armazenadas
 }
 
 
-CSV gb_OpenCSV (CSV fp, char* filename){
+CSV GB_OpenCSV (CSV fp, char* filename){
 	
 	if(filename == NULL){
-		
+		perror(".csv filename not given.\n");
 		exit(EXIT_FAILURE);
 	}
 	
 	fp = fopen(filename, "r+");
 	
 	if(fp == NULL){
-		
+		perror(".csv file could not be opened. Not enough memory/fatal error ocurred while trying to access the disk.\n");
 		exit(EXIT_FAILURE);
 	}
 	
 	return fp;
 }
 
-void* gb_ReadCSV (CSV fp, OBJ o){
+void* GB_ReadCSV (CSV fp, SITE* s){
 	
 	int i = 0, j = 0, k = 0;
 	char dump = ' '; // dump is initialized as blank space so it certainly enters the reading loop on line x
 	
 	if(fp == NULL){
-		//perror("File not opened.\n");
+		perror("File not opened.\n");
 		exit(EXIT_FAILURE);
 	}
 	
 	fseek(fp, 0, SEEK_SET);
 	
 	do{
-		fscanf(fp, "%d", &o->code);
+		fscanf(fp, "%d", &s->code);
 		
-		if (!gb_CodeCheck) return NULL;
+		if (!GB_CodeCheck(s->code, )) return NULL;
 		
 		fscanf(fp, ",%m[^,],%d,%m[^,],", o->name, &o->relev, o->link);
 		
 		while (dump != '\n'){
 			dump = fgetc(fp);
-			o->keyw[j][k] = dump;
+			s->keyw[j][k] = dump;
 			
 			k++;
 			if(dump == ','){
@@ -65,4 +65,7 @@ void* gb_ReadCSV (CSV fp, OBJ o){
 		}
 	}while(!feof(fp));
 	
+}
+
+int GB_UpdateDataBase () { /* TODO */
 }
