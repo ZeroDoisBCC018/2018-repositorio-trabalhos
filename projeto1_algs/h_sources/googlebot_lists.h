@@ -1,0 +1,45 @@
+#ifndef GOOGLEBOTLIST_H
+#define GOOGLEBOTLIST_H
+#include <stddef.h> 
+#include <stdlib.h>
+#include <stdio.h>
+#include "googlebot_ds.h"
+
+/*A NODE struct contains a SITE* and a NODE* for the next node in the list.*/
+typedef struct node_ NODE;
+
+/*A LIST struct contains an int for the size, one NODE* for the first node 
+ *and one for the last node on the list*/
+typedef struct list_ LIST;
+
+NODE* GB_NewNode(void);
+
+LIST* GB_NewList(void);
+
+int GB_CheckEmptyList(LIST* l);
+
+int GB_CheckInvalidList(LIST* l);
+
+int GB_EraseList(LIST* l);
+
+/*Insert node at the first position of the list.*/
+int GB_InsertNodeFirstPos(LIST* l, NODE* n);
+
+/*Insert node at the last position of the list.*/
+int GB_InsertNodeLastPos(LIST* l, NODE* n);
+
+int GB_CountListSize(LIST* l);
+
+/*Search a site on the list by its code.*/
+int GB_SearchCode(LIST* l, int code);
+
+/*Sort the list by site codes.*/
+void GB_SortList(LIST* l);
+
+/*Update the relevance of a choosen site.*/
+int GB_UpdateRelevance(LIST* l, int code, int newrel);
+
+/*Insert node at an X specific position of the list.*/
+int InsertNodeAtPos(LIST* l, int position); 
+
+#endif
