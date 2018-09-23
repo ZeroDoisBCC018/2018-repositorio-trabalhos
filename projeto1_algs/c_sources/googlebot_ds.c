@@ -10,10 +10,10 @@
 
 struct site_ {
 	int code;
-	char* name;
+	const char* name;
 	int relev;
-	char* link;
-	char keyw[10][50];
+	const char* link;
+	const char keyw[10][50];
 }
 
 int GB_GetSiteStdin(LIST* l) {
