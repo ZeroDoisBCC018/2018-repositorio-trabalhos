@@ -57,16 +57,16 @@ int GB_CountListSize (LIST* l) {
 void GB_SortList (LIST* l) { /*TODO*/ 
 }
 
-int GB_InsertNodeFirstPos (LIST* l, NODE* new) {
+int GB_InsertNodeFirstPos (LIST* l, NODE* n) {
     if (GB_CheckInvalidList(l)) return ERROR;
     if (GB_CheckEmptyList(l)) {
-        l->first = new;
+        l->first = n;
         return SUCCESS;
     } else {
         NODE* aux;
         aux = l->first;
-        l->first = new;
-        new->next = aux;
+        l->first = n;
+        n->next = aux;
         aux = NULL;
         (l->size)++;
     }
