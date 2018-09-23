@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "googlebot_ds.h"
+typedef int boolean;
 
 /*A NODE struct contains a SITE* and a NODE* for the next node in the list.*/
 typedef struct node_ NODE;
@@ -16,9 +17,10 @@ NODE* GB_NewNode(void);
 
 LIST* GB_NewList(void);
 
-int GB_CheckEmptyList(LIST* l);
+boolean GB_CheckEmptyList(LIST* l);
 
-int GB_CheckInvalidList(LIST* l);
+/* Invalid size: lesser than 0 or greater than 9999. */
+boolean GB_CheckInvalidList(LIST* l);
 
 int GB_EraseList(LIST* l);
 
