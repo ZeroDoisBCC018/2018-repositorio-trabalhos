@@ -11,8 +11,8 @@
 struct site_ {
 	int code;
 	const char* name;
-	const char* link;
 	int relev;
+	const char* link;
 	const char keyw[10][50];
 }
 
