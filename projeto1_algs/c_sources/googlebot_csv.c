@@ -8,12 +8,18 @@
 #include <string.h>
 #include "googlebot_ds.h"
 #include "googlebot_lists.h"
-typedef int boolean;
-typedef FILE* CSV;
+#define boolean int;
+#define CSV FILE*;
 
-boolean GB_CodeCheck (int code, SITE* array){
-	//vamos comparar o 'code' com todos os anteriores do vetor antes de inseri-lo neste
-	//precisaremos de um contador de quantas structs ja foram armazenadas
+boolean GB_CodeCheck (int code, LIST* l){
+	if (GB_CheckInvalidList(l)) return ERROR;
+	if (GB_CheckEmptyList(l)) return ERROR;
+	NODE* aux = array->first;
+	while (aux != NULL){
+		if (aux->site->code == code) return 1;
+		aux = aux->next;
+	}
+	return 0;
 }
 
 
