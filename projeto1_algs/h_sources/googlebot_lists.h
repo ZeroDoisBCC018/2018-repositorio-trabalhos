@@ -19,7 +19,7 @@ LIST* GB_NewList(void);
 
 boolean GB_CheckEmptyList(LIST* l);
 
-/* Invalid size: lesser than 0 or greater than 9999. */
+/* Invalid size: less than 0 or greater than 9999. */
 boolean GB_CheckInvalidList(LIST* l);
 
 int GB_EraseList(LIST* l);
