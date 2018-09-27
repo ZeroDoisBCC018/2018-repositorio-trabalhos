@@ -84,5 +84,33 @@ void GB_ReadCSV (CSV fp, SITE* s){
 	}while(!feof(fp));
 }
 
-boolean GB_UpdateDataBase () { /* TODO */
+boolean GB_UpdateDataBase (CSV fp, char* filename, LIST* l) {
+	int i = 0;
+	NODE* aux;
+	aux = l->first;
+	char c;
+	
+	if(fp == NULL){
+		perror("File not opened.\n");
+		exit(EXIT_FAILURE);
+	}
+	
+	fflush(fp);
+	
+	GB_CloseCSV(fp);
+	GB_OpenCSVwrite(fp, filename);
+	
+	while (aux->next != l->last)
+	{
+		fprintf(fp, "%d,%s,%s,", aux->site->code, aux->site->name, aux->site->link);
+		
+		do{
+			fprintf("%c"), aux->site->keyw[i];
+			i++;
+		}while (c != '\n');
+		
+		aux = aux->next;
+	}
+	
+	GB_CloseCSV(fp);
 }
