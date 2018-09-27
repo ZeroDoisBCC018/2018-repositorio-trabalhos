@@ -13,21 +13,35 @@ struct site_ {
 	const char* name;
 	int relev;
 	const char* link;
-	const char keyw[10][50];
+	const char keyw[500];
 }
 
-int GB_GetSiteStdin(LIST* l) {
+NODE* GB_GetSiteStdin(void) {
 	if (l == NULL) return ERROR;
 	if (GB_CheckInvalidList(l)) return ERROR;
-	NODE* n = GB_NewNode();
+	NODE* new = GB_NewNode(void);
+	
 	int code = fscanf(stdin, "%d", &code);
+	new->code = code;
 	fflush(stdin);
+	
 	char* name = fgets(name, 50, stdin);
+	new->name = name;
 	fflush(stdin);
+	
 	int relev = fscanf(stdin, "%d", &relev);
+	new->relev = relev;
 	fflush(stdin);
+	
 	char* link = fgets(link, 100, stdin);
+	new->link = link;
 	fflush(stdin);
-	int i, j;
-	/* FOR LOOP */
+	return new;
+}
+
+int GB_InsertSite(LIST* l, int pos){
+	if (GB_CheckInvalidList(l)) return ERROR; 
+	NODE* new = GB_GetSiteStdin(void);
+	InsertNodeAtPos(l, new, pos);
+	return SUCCESS;
 }
