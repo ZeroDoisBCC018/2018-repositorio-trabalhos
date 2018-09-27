@@ -28,7 +28,7 @@ CSV GB_OpenCSV (CSV fp, char* filename){
 		perror(".csv filename not given.\n");
 		exit(EXIT_FAILURE);
 	}
-	fp = fopen(filename, "w+");
+	fp = fopen(filename, "r");
 	if(fp == NULL){
 		perror(".csv file could not be opened. Not enough memory/fatal error ocurred while trying to access the disk.\n");
 		exit(EXIT_FAILURE);
