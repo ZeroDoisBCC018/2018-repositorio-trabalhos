@@ -39,6 +39,38 @@ void new_site(void){
 	GB_GetSiteStdin(l);
 }
 
+void remove_site(void){
+	
+	int b;
+	fprintf(stdout, "You're about to insert a new site on the database.\n");
+	fprintf(stdout, "To cancel this operation, insert code 0. To continue please insert code 1.\n");
+	fscanf(stdin, "%d", &b);
+	if (b == 0) return;
+	while(b != 1){
+		fprintf(stdout, "Unknown code. To cancel this operation, insert code 0. To continue please insert code 1.\n");
+		fflush(stdin);
+		fscanf(stdin, "%d", &b);
+		if (b == 0) return;
+	}
+	std_divide();
+	fprintf(stdout, "To remove a site, its code below:\n");
+	int code = fscanf(stdin,"%d", &code);
+	fprintf(stdin, "Are you sure? Insert code 1 to continue.\n")
+	int d = fscanf(stdin, "%d", &d);
+	if (d != 1){
+		fprintf(stdout, "Operation canceled. Returning to the Modify Database menu section.\n")
+		std_divide();
+		return;
+	}
+	if (GB_RemoveSite(l, code) != 1){
+		fprintf(stdout, "No such code on the database. Returning to the Modify Database menu section.\n");
+		std_divide();
+		return;
+	} else {
+		fprintf(stdout, "Site removed from the database successfully.\n");
+	}
+}
+
 void first(void){
 	
 	int op1 = 101;
