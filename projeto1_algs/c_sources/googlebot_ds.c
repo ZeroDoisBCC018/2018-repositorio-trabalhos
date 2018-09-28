@@ -16,12 +16,14 @@ struct site_ {
 	const char keyw[10][50];
 }
 
-NODE* GB_GetSiteStdin(void) {
+int GB_GetSiteStdin(LIST* l) {
+	
 	if (l == NULL) return ERROR;
 	if (GB_CheckInvalidList(l)) return ERROR;
 	NODE* new = GB_NewNode(void);		  /*a new node is created*/
 	
-	int code = fscanf(stdin, "%d", &code);	  /*we read from stdin the code and allocate it in the new node's site position*/	
+	int code = fscanf(stdin, "%d", &code);	  /*we read from stdin the code and allocate it in the new node's site position*/
+	if (code <= 0 || code > 9999) return ERROR;
 	new->code = code;
 	fflush(stdin);
 	
@@ -30,6 +32,7 @@ NODE* GB_GetSiteStdin(void) {
 	fflush(stdin);
 	
 	int relev = fscanf(stdin, "%d", &relev);  /*we read from stdin the relevance and allocate it in the new node's site position*/
+	if (relev < 0 || relev > 1000) return ERROR;
 	new->relev = relev;
 	fflush(stdin);
 	
@@ -48,7 +51,7 @@ NODE* GB_GetSiteStdin(void) {
 			k = 0;
 		}
 	}
-	return new;
+	GB_InsertNodeAtPosition(l, new, code);
 }
 
 int GB_InsertSite(LIST* l, int pos){	          
