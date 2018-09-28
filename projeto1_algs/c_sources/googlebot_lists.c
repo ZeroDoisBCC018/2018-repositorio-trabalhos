@@ -54,9 +54,6 @@ int GB_CountListSize (LIST* l) {
 	return count;
 }
 
-void GB_SortList (LIST* l) { /*TODO*/ 
-}
-
 int GB_InsertNodeFirstPos (LIST* l, NODE* n) {
     if (GB_CheckInvalidList(l)) return ERROR;
     if (GB_CheckEmptyList(l)) {
@@ -121,19 +118,19 @@ int InsertNodeAtPosition (LIST* l, NODE* n, int code){
 	return SUCCESS;
 }
 
-int GB_SearchCode (LIST* l, int code) {
-	if (GB_CheckEmptyList(l)) return ERROR;
-	else if (GB_CheckInvalidList(l)) return ERROR;
+NODE* GB_SearchCode (LIST* l, int code) {
+	if (GB_CheckEmptyList(l)) printf("The list is empty\n");
+	else if (GB_CheckInvalidList(l)) printf("The list is invalid\n");
 	else {
 		NODE* aux = l->first;
 		int c = aux->site->code;
-		while (c != code || aux != l->last) {
+		while (c != code || aux != l->last->next) {
 			aux = aux->next;
 			c = aux->site->code;
 		}
 	}
-	if (aux == l->last) return ERROR;
-	else return c;
+	if (aux == l->last->next) printf("Error 404 - Site was not found\n");
+	else return aux;
 }
 
 /* REVER */
