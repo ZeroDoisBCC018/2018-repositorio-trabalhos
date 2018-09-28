@@ -28,8 +28,17 @@ void second(void){
 }
 
 void options(void){
+	
+	static int op;
 	fprintf(stdout, "\t1 - Modify the database;\n\t2 - Update the database;\n\t3 - Print the menu options on the screen again;\n\t4 - Exit the Googlebot.\n");
 	std_divide();
+	
+	do{
+		fscanf(stdin, "%d", &op);
+		switch(op){
+			case 1:
+		}
+	}while();
 }
 
 void welcome(void){
@@ -46,20 +55,22 @@ void welcome(void){
 void menu(void){
 	
 	static int op;
+	options();
 	
-	do{
+	while(op != ){
 		fscanf(stdin, "%d", &op);
 		switch(opcao){
 			case 1: first(); break;
 			case 2: second(); break;
-			case 3: options();
-			case 4: break;
+			case 3: options(); break;
+			case 4: break; /* parei aqui */
 			default:
 				fprintf(stdout, "Unknown Code! Please insert one of the option codes above.\n");
 				fflush(stdin);
 				fscanf(stdin, "%d", &op);
 		}
-	}while(opcao != 3)		
+		fprintf(stdout, "Insert code 3 to print the menu options again.\n");
+	}	
 }
 
 void error_no_name(void){
