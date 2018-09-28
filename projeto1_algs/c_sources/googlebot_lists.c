@@ -119,8 +119,8 @@ int InsertNodeAtPosition (LIST* l, NODE* n, int code){
 }
 
 NODE* GB_SearchCode (LIST* l, int code) {
-	if (GB_CheckEmptyList(l)) printf("The list is empty\n");
-	else if (GB_CheckInvalidList(l)) printf("The list is invalid\n");
+	if (GB_CheckEmptyList(l)) perror("The list is empty\n");
+	else if (GB_CheckInvalidList(l)) perror("The list is invalid\n");
 	else {
 		NODE* aux = l->first;
 		int c = aux->site->code;
@@ -129,7 +129,7 @@ NODE* GB_SearchCode (LIST* l, int code) {
 			c = aux->site->code;
 		}
 	}
-	if (aux == l->last->next) printf("Error 404 - Site was not found\n");
+	if (aux == l->last->next) perror("Error 404 - Site was not found\n");
 	else return aux;
 }
 
@@ -139,17 +139,18 @@ int GB_UpdateRelevance (LIST* l, int code, int newrel) {
 	else if (GB_CheckInvalidList(l)) return ERROR;
 	else if (code < 0 || code > 1000) return ERROR;
 	NODE* aux;
-	aux = l->first;
-	int check = 0;
+	aux = GB_SearchCode (l, code);	
+	aux->site->code = newrel;
+	/*int check = 0;
 	int i = 0;
-	for (i = 0; i < l->size; i++) {
+	int listsize = GB_CountListSize(l);
+	for (i = 0; i < listsize; i++) {
 		if (aux->site->code == code) {
-			aux->site->code = newrel;
 			check = 1;
+			break;
 		}
-	}
-	if (check != 1) return ERROR;
-	else return 0;
+	}*/
+	return SUCCESS;
 }
 
 int GB_EraseList (LIST* l) {
