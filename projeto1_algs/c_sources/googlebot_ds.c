@@ -101,12 +101,11 @@ int GB_InsertKeyword(LIST* l, int code){
 		count++;
 	}
 	if (count > 10){
-		printf("No more space for keywords\n");
+		perror("No more space for keywords\n");
 		return ERROR;
 	}
 	dump = ' '; /*resets the dump character*/
 	while (dump != '\n'){
-		printf("Insert here your new keyword\n");
 		dump = getchar();
 		n->keyw[count][k] = dump;
 		k++;
