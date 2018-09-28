@@ -37,7 +37,17 @@ NODE* GB_GetSiteStdin(void) {
 	new->link = link;
 	fflush(stdin);
 	
-	//char* keywords =  TODOTODOTODO
+	char dump = ' ';
+	int i = 0, j = 0;
+	while (dump != '\n'){
+		dump = getchar();
+		new->keyw[j][k] = dump;
+		k++;
+		if(dump == ','){
+			j++;
+			k = 0;
+		}
+	}
 	return new;
 }
 
