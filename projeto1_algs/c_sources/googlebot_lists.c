@@ -156,87 +156,65 @@ int GB_UpdateRelevance (LIST* l, int code, int newrel) {
 }
 
 int GB_EraseList (LIST* l) {
-    NODE* aux1, aux2;
-    aux1 = l->first;
-    while (aux1 != NULL) {
-        aux2 = aux1->next;
-        free(aux1);
-        aux1 = aux2;
+	NODE* aux1, aux2;
+	aux1 = l->first;
+    	while (aux1 != NULL) {
+		aux2 = aux1->next;
+		free(aux1);
+		aux1 = aux2;
     }
-    aux1 = NULL;
-    aux2 = NULL;
-    free(l);
-    return SUCCESS;
+	aux1 = NULL;
+	aux2 = NULL;
+	free(l);
+	return SUCCESS;
 }
 
-void GB_Sort(LIST* l)
-{
+void GB_Sort(LIST* l) {
 	static int listsize = GB_CountListSize(l);
 	if (listsize == 0 || listsize == 1) return;
-	
-	else
-	{
+	else {
 		LIST* auxfirst == NULL;
 		LIST* auxsecond == NULL;
 		NODE* auxnode == l->first;
 		int i = 0;
-		
 		auxfirst = GB_NewList;
 		auxsecond = GB_NewList;
 		
-		while (i < (listsize/2))
-		{
+		while (i < (listsize/2)) {
 			GB_InsertNodeLastPos (auxfirst, auxnode);
 			auxnode = auxnode->next;
-			
 			i++;
 		}
-		
-		while (i <= listsize)
-		{
+		while (i <= listsize) {
 			GB_InsertNodeLastPos (auxsecond, auxnode);
 			auxnode = auxnode->next;
-			
 			i++;
 		}
-		
 		GB_sort(auxfirst);
 		GB_sort(auxsecond);
 		GB_merge(auxfirst, auxsecond);
 	}
-		
 }
 
-void GB_Merge (LIST* lfirst, LIST* lsecond)
-{
+void GB_Merge (LIST* lfirst, LIST* lsecond) {
 	LIST* aux == GB_NewList;
-	
-	
 	int lfirst_size = GB_CountListSize(lfirst);
 	int lsecond_size = GB_CountListSize(lsecond);
 	NODE* auxnode1 == lfirst->first;
 	NODE* auxnode2 == lsecond->second;
 	
-	while (lfirst_size != 0 && lsecond_size != 0)
-	{
-		if (auxnode1->code < auxnode2->code)
-		{
+	while (lfirst_size != 0 && lsecond_size != 0) {
+		if (auxnode1->code < auxnode2->code) {
 			GB_InsertNodeLastPos (aux, auxnode1);
 			auxnode1 = auxnode1->next;
-			
-		}
-		
-		else
-		{
+		} else {
 			GB_InsertNodeLastPos (aux, auxnode2);
 			auxnode2 = auxnode2->next;
 		}
 	}
 	
-	while (i > lsecond_size)
-	{
+	while (i > lsecond_size) {
 		GB_InsertNodeLastPos (aux, auxnode2);
 		auxnode2 = auxnode2->next;
 	}	
-	
 }
