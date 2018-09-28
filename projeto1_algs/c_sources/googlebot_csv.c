@@ -59,31 +59,54 @@ void GB_CloseCSV (CSV fp){
 
 
 
-void GB_ReadCSV (CSV fp, SITE* s){ //pq ta recebendo site como parametro? nao deveria ser lista?
-	/*detalhe: lembrar de ignorar a primeira linha que contem a classificacao dos objetos do csv */
-	/*criar duas opcoes: uma para csv com header(primeira linha inutil) e outra sem, sugestao: receber boolean mode*/
-	/*lembrar de checar se tem lista criada, vazia ou com tamanho invalido*/
+int GB_ReadCSV (CSV fp, LIST* l){
+	if (GB_CheckInvalidList(l)) return ERROR;
+	if (GB_CheckEmptyList(0)) return ERROR; /*Checks if the list isn't empty*/
+	
 	int i = 0, j = 0, k = 0;
 	char dump = ' '; // dump is initialized as blank space so it certainly enters the reading loop on line x
 	if(fp == NULL){
 		perror("File not opened.\n");
 		exit(EXIT_FAILURE);
 	}
+	char ignoreline[200] = fgets(ignoreline, 200, fp); /*Ignores the header from the CSV file*/
+	int count = 0;
+	int count2 = 0;
 	fseek(fp, 0, SEEK_SET);
+	
+	while(dump != EOF){ 	/*This loop counts all the lines of the csv file and rewinds it before performing the reading operations*/
+		ignoreline[200] = fgets(ignoreline, 200, fp);
+		dump = fgetc(fp);
+		count++;
+	}
+	rewind(fp);
+	
+	NODE* n = GB_NewNode(void);	/*In this loop a number of nodes equivalent to the number of sites counted are created and linked*/
+	while(count2 != count1){
+		n->next = GB_NewNode(void);
+		n = n->next;
+	}
+	n = l->first; /*now the node is reseted to the first position of the list in order to  read the informations*/
+	
 	do{
-		fscanf(fp, "%d", &s->code);
-		if (!GB_CodeCheck(s->code, )) return NULL;
-		fscanf(fp, ",%m[^,],%d,%m[^,],", o->name, &o->relev, o->link);
+		ignoreline[200] = fgets(ignoreline, 200, fp); /*Ignores again the header*/
+		fscanf(fp, "%d", &n->code);
+		if (!GB_CodeCheck(n->code, )) return NULL;
+		fscanf(fp, ",%m[^,],%d,%m[^,],", n->name, &n->relev, n->link);
 		while (dump != '\n'){
 			dump = fgetc(fp);
-			s->keyw[j][k] = dump;
+			n->keyw[j][k] = dump;
 			k++;
 			if(dump == ','){
 				 j++;
 				 k = 0;
 			}
+		n = n->next;
+		l->size++;
+		if (n->next == NULL) break;
 		}
 	}while(!feof(fp));
+	GB_Sort(l);
 }
 
 boolean/*int*/ GB_UpdateDataBase (CSV fp, char* filename, LIST* l) { //o retorno deve ser int para retornar sucesso ou erro
@@ -91,28 +114,20 @@ boolean/*int*/ GB_UpdateDataBase (CSV fp, char* filename, LIST* l) { //o retorno
 	NODE* aux;
 	aux = l->first;
 	char c;
-	
 	if(fp == NULL){
 		perror("File not opened.\n");
 		exit(EXIT_FAILURE);
 	}
-	
 	fflush(fp);
-	
 	GB_CloseCSV(fp);
 	GB_OpenCSVwrite(fp, filename);
-	
-	while (aux->next != l->last)
-	{
+	while (aux->next != l->last){
 		fprintf(fp, "%d,%s,%s,", aux->site->code, aux->site->name, aux->site->link);
-		
 		do{
 			fprintf("%c"), aux->site->keyw[i];
 			i++;
 		}while (c != '\n');
-		
 		aux = aux->next;
 	}
-	
 	GB_CloseCSV(fp);
 }
