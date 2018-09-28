@@ -111,14 +111,14 @@ int GB_ReadCSV (CSV fp, LIST* l){
 	GB_Sort(l);
 }
 
-boolean/*int*/ GB_UpdateDataBase (CSV fp, char* filename, LIST* l) { //o retorno deve ser int para retornar sucesso ou erro
+int GB_UpdateDataBase (CSV fp, char* filename, LIST* l) {
 	int i = 0;
 	NODE* aux;
 	aux = l->first;
 	char c;
 	if(fp == NULL){
 		perror("File not opened.\n");
-		exit(EXIT_FAILURE);
+		return ERROR;
 	}
 	fflush(fp);
 	GB_CloseCSV(fp);
@@ -132,4 +132,5 @@ boolean/*int*/ GB_UpdateDataBase (CSV fp, char* filename, LIST* l) { //o retorno
 		aux = aux->next;
 	}
 	GB_CloseCSV(fp);
+	return SUCCESS;
 }
