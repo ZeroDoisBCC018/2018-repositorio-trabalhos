@@ -86,3 +86,20 @@ int GB_RemoveSite(LIST* l, int code){
 	}
 	return ERROR;				   /*if the function hasn't returned success yet, it has failed somewhere, so */
 }					           /*we return error*/
+
+int GB_InsertKeyword(LIST* l, int code){
+	char dump = ' ';
+	int i = 0, j = 0;
+	while (dump != '\n'){
+		dump = getchar();
+		new->keyw[j][k] = dump;
+		k++;
+		if(dump == ','){
+			j++;
+			k = 0;
+		}
+	}	
+	
+	
+	
+}
