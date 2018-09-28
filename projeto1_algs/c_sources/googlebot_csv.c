@@ -8,15 +8,14 @@
 #include <string.h>
 #include "googlebot_ds.h"
 #include "googlebot_lists.h"
-#define boolean int;
-#define CSV FILE*;
+#define boolean int
+#define CSV FILE*
 
 int GB_CodeCheck (int code, LIST* l){
 	if (GB_CheckInvalidList(l)) return ERROR;
 	if (GB_CheckEmptyList(l)) return ERROR;
 	if (code <= 0 || code > 9999) return ERROR;
-	char dump = ' ';
-	NODE* aux = array->first; /*nao eh mais array*/
+	NODE* aux = l->first; /*nao eh mais array*/
 	while (aux != NULL){
 		if (aux->site->code == code) return ERROR; /* esse trecho ficou otimo mas coloca else so por garantia*/
 		aux = aux->next;
@@ -52,14 +51,11 @@ CSV GB_OpenCSVwrite (CSV fp, char* filename){
 
 void GB_CloseCSV (CSV fp){
 	if(fp == NULL){
-		perror("no .csv file oṕened."); /*nao precisa quitar do programa, so da return na funcao*/
+		perror("no .csv file opened."); /*nao precisa quitar do programa, so da return na funcao*/
 		exit(EXIT_FAILURE);
 	}
-	
 	fclose(fp);
 }
-
-
 
 int GB_ReadCSV (CSV fp, LIST* l){
 	if (GB_CheckInvalidList(l)) return ERROR;
