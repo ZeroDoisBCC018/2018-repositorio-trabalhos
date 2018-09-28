@@ -88,18 +88,26 @@ int GB_RemoveSite(LIST* l, int code){
 }					           /*we return error*/
 
 int GB_InsertKeyword(LIST* l, int code){
+	if (GB_CheckInvalidList(l)) return ERROR; 
+	if (GB_CheckEmptyList(l)) return ERROR;
+	NODE* n = GB_SearchCode(l, code);
 	char dump = ' ';
-	int i = 0, j = 0;
+	int count = 0;
+	int i = 0, j = 0, k = 0;
+	while (n->keyw[count][0] != NULL || count > 10){
+		count++;
+	}
+	if (count > 10){
+		printf("No more space for keywords\n");
+		return ERROR;
+	}
+	dump = ' '; /*resets the dump character*/
 	while (dump != '\n'){
+		printf("Insert here your new keyword\n");
 		dump = getchar();
-		new->keyw[j][k] = dump;
+		n->keyw[count][k] = dump;
 		k++;
-		if(dump == ','){
-			j++;
-			k = 0;
 		}
-	}	
-	
-	
-	
+	}
+	return SUCCESS;
 }
