@@ -10,7 +10,7 @@
 typedef struct SITE;
 
 /*reads site information from standard input*/
-NODE* GB_GetSiteStdin(void);
+NODE* GB_GetSiteStdin(LIST* l);
 
 /*inserts site information in structure pointed to by a given list position*/
 int GB_InsertSite(LIST* l, int pos);
