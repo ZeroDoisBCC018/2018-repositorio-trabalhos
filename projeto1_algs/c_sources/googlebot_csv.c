@@ -27,7 +27,7 @@ CSV GB_OpenCSVread (CSV fp, char* filename){
 		perror(".csv filename not given.\n");
 		exit(EXIT_FAILURE);
 	}
-	fp = fopen(filename, "w");
+	fp = fopen(filename, "r");
 	if(fp == NULL){
 		perror(".csv file could not be opened. Not enough memory/fatal error ocurred while trying to access the disk.\n");
 		exit(EXIT_FAILURE);
@@ -40,7 +40,7 @@ CSV GB_OpenCSVwrite (CSV fp, char* filename){
 		perror(".csv filename not given.\n");
 		exit(EXIT_FAILURE);
 	}
-	fp = fopen(filename, "r"); /* aqui tem que ser "r+" pq "w" sempre cria uma empty file */
+	fp = fopen(filename, "w"); /* aqui tem que ser "r+" pq "w" sempre cria uma empty file */
 	if(fp == NULL){
 		perror(".csv file could not be opened. Not enough memory/fatal error ocurred while trying to access the disk.\n");
 		exit(EXIT_FAILURE);
