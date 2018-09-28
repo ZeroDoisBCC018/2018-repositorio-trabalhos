@@ -35,8 +35,11 @@ int GB_CountListSize(LIST* l);
 /*Search a site on the list by its code.*/
 int GB_SearchCode(LIST* l, int code);
 
-/*Sort the list by site codes.*/
-void GB_SortList(LIST* l);
+/*Sort the list by site codes using a merge sort algorithm. This is the sort function.*/
+void GB_Sort(LIST* l);
+
+/*Merge function for the merge sort algorithm.*/
+void GB_Merge(LIST* lfirst, LIST* lsecond);
 
 /*Update the relevance of a choosen site.*/
 int GB_UpdateRelevance(LIST* l, int code, int newrel);
