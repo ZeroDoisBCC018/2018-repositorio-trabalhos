@@ -45,6 +45,9 @@ void GB_Merge(LIST* lfirst, LIST* lsecond);
 int GB_UpdateRelevance(LIST* l, int code, int newrel);
 
 /*Insert node at an X specific position of the list.*/
-int InsertNodeAtPos(LIST* l, int position); 
+int InsertNodeAtPos(LIST* l, int position);
+
+/*Insert keyword at X specific code of the list)*/
+int InsertKeyWord(LIST* l, int code);
 
 #endif
