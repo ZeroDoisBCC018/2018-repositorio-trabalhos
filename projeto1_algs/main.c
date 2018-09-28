@@ -7,8 +7,6 @@
 #include "googlebot_csv.h"
 #define CSV FILE*
 
-LIST* l;
-
 void std_divide(void){
 	fprintf(stdout, "=#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#=\n");
 }
@@ -21,16 +19,36 @@ void print_first(void){
 	std_divide();
 }
 
+void new_site(void){
+	
+	int a;
+	fprintf(stdout, "You're about to insert a new site on the database.\n");
+	fprintf(stdout, "To cancel this operation, insert code 0. To continue please insert code 1.\n");
+	fscanf(stdin, "%d", &a);
+	if (a == 0) return;
+	while(a != 1){
+		fprintf(stdout, "Unknown code. To cancel this operation, insert code 0. To continue please insert code 1.\n");
+		fflush(stdin);
+		fscanf(stdin, "%d", &a);
+		if (a == 0) return;
+	}
+	std_divide();
+	fprintf(stdout, "To insert your new site, please type these properties on the following order:\n");
+	fprintf(stdout, "(Press enter after each typed propertie.)\n");
+	fprintf(stdout, "\t1 - Code (1 up to 9999);\n\t2 - Name (up to 50 characters);\n\t3 - Relevance (0 up to 1000);\n\t4 - Link (up to 100 characters);\n\t5 - Site tags/keywords (up to 10 tags, each with a max of 50 characters).\n");
+	GB_GetSiteStdin(l);
+}
+
 void first(void){
 	
-	static int op = 101;
+	int op1 = 101;
 	std_divide();
 	print_first();
 	
-	while(op != 6){
+	while(op1 != 6){
 		fflush(stdin);
-		fscanf(stdin, "%d");
-		switch(op){
+		fscanf(stdin, "%d", &op1);
+		switch(op1){
 			case 1: new_site(); break;
 			case 2: remove_site(); break;
 			case 3: update_rel(); break;
@@ -40,7 +58,7 @@ void first(void){
 			default:
 				fprintf(stdout, "Unknown Code! Please insert one of the option codes above.\n");
 		}
-		if (op != 6) fprintf(stdout, "Insert code 5 to print this menu section again.\n");
+		if (op1 != 6) fprintf(stdout, "Insert code 5 to print this menu section again.\n");
 	}
 }
 
@@ -66,13 +84,14 @@ void welcome(void){
 
 void menu(void){
 	
-	static int op = 101;
+	int op0 = 101;
 	menu_options();
+	std_divide();
 	
-	while(op != 4){
+	while(op0 != 4){
 		fflush(stdin);
-		fscanf(stdin, "%d", &op);
-		switch(opcao){
+		fscanf(stdin, "%d", &op0);
+		switch(op0){
 			case 1: first(); break;
 			case 2: second(); break;
 			case 3: menu_options(); break;
@@ -80,7 +99,7 @@ void menu(void){
 			default:
 				fprintf(stdout, "Unknown Code! Please insert one of the option codes above.\n");
 		}
-		if (op != 4) fprintf(stdout, "Insert code 3 to print the menu options again.\n");
+		if (op0 != 4) fprintf(stdout, "Insert code 3 to print the menu options again.\n");
 	}	
 }
 
@@ -92,6 +111,8 @@ void error_no_name(void){
 	fprintf(stdout, "If the filename input is a nonexistent file\n");
 	fprintf(stdout, "an empty new one with this name will be created.\n");
 }
+
+LIST* l;
 
 int main(int argc, const char* argv[]){
 	
