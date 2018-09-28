@@ -14,6 +14,8 @@
 int GB_CodeCheck (int code, LIST* l){
 	if (GB_CheckInvalidList(l)) return ERROR;
 	if (GB_CheckEmptyList(l)) return ERROR;
+	if (code <= 0 || code > 9999) return ERROR;
+	char dump = ' ';
 	NODE* aux = array->first; /*nao eh mais array*/
 	while (aux != NULL){
 		if (aux->site->code == code) return ERROR; /* esse trecho ficou otimo mas coloca else so por garantia*/
@@ -122,7 +124,7 @@ boolean/*int*/ GB_UpdateDataBase (CSV fp, char* filename, LIST* l) { //o retorno
 	GB_CloseCSV(fp);
 	GB_OpenCSVwrite(fp, filename);
 	while (aux->next != l->last){
-		fprintf(fp, "%d,%s,%s,", aux->site->code, aux->site->name, aux->site->link);
+		fprintf(fp, "%04d,%s,%s,", aux->site->code, aux->site->name, aux->site->link);
 		do{
 			fprintf("%c"), aux->site->keyw[i];
 			i++;
