@@ -71,6 +71,50 @@ void remove_site(void){
 	}
 }
 
+void update_rel(void){
+	
+	int c;
+	fprintf(stdout, "You're about to update the relevance of a specific site on the database.\n");
+	fprintf(stdout, "To cancel this operation, insert code 0. To continue please insert code 1.\n");
+	fscanf(stdin, "%d", &c);
+	if (c == 0) return;
+	while(c != 1){
+		fprintf(stdout, "Unknown code. To cancel this operation, insert code 0. To continue please insert code 1.\n");
+		fflush(stdin);
+		fscanf(stdin, "%d", &c);
+		if (c == 0) return;
+	}
+	std_divide();
+	
+	if (GB_UpdateRelevance(l, code, r) != 1){
+		fprintf(stdout, "Relevance could not be updated. Return to the Modify Database menu section.\n");
+		return;
+	} else {
+		fprintf(stdout, "Relevance updated succesfully.\n");
+	}
+}
+
+void new_keyw{
+	int d;
+	fprintf(stdout, "You're about to insert a new keyword into a specific site on the database.\n");
+	fprintf(stdout, "To cancel this operation, insert code 0. To continue please insert code 1.\n");
+	fscanf(stdin, "%d", &d);
+	if (d == 0) return;
+	while (d != 1){
+		fprintf(stdout, "Unknown code. To cancel this operation, insert code 0. To continue please insert code 1.\n");
+		fflush(stdin);
+		fscanf(stdin, "%d", &d);
+		if (d == 0) return;
+	}
+	std_divide();
+	
+	if (GB_InsertKeyword(l, code) != 1){
+		fprintf(stdout, "New keyword could not be inserted. Return to the Modify Database menu section.\n");
+		return;
+	} else {
+		fprintf(stdout, "New keyword inserted succesfully.\n");
+}
+
 void first(void){
 	
 	int op1 = 101;
@@ -95,6 +139,24 @@ void first(void){
 }
 
 void second(void){
+	fprintf(stdout, "You are about to update the database.");
+	fprintf(stdout, "To cancel this operation, insert code 0. To continue please insert code 1.\n");
+	fscanf(stdin, "%d", &d);
+	if (d == 0) return;
+	while (d != 1){
+		fprintf(stdout, "Unknown code. To cancel this operation, insert code 0. To continue please insert code 1.\n");
+		fflush(stdin);
+		fscanf(stdin, "%d", &d);
+		if (d == 0) return;
+	}
+	std_divide();
+	
+	if (GB_UpdateDataBase(fp, filename, l) != 1){
+		fprintf(stdout, "Database could not be updated. Return to the Modify Database menu section.\n");
+		return;
+	} else {
+		fprintf(stdout, "Database updated succesfully.\n");
+	
 }
 
 void menu_options(void){
