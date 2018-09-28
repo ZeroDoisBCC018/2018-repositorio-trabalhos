@@ -14,14 +14,13 @@
 int GB_CodeCheck (int code, LIST* l){
 	if (GB_CheckInvalidList(l)) return ERROR;
 	if (GB_CheckEmptyList(l)) return ERROR;
-	NODE* aux = array->first;
+	NODE* aux = array->first; /*nao eh mais array*/
 	while (aux != NULL){
-		if (aux->site->code == code) return ERROR;
+		if (aux->site->code == code) return ERROR; /* esse trecho ficou otimo mas coloca else so por garantia*/
 		aux = aux->next;
 	}
 	return SUCCESS;
 }
-
 
 CSV GB_OpenCSVread (CSV fp, char* filename){
 	if(filename == NULL){
@@ -41,7 +40,7 @@ CSV GB_OpenCSVwrite (CSV fp, char* filename){
 		perror(".csv filename not given.\n");
 		exit(EXIT_FAILURE);
 	}
-	fp = fopen(filename, "w");
+	fp = fopen(filename, "r+"); /* aqui tem que ser "r+" pq "w" sempre cria uma empty file */
 	if(fp == NULL){
 		perror(".csv file could not be opened. Not enough memory/fatal error ocurred while trying to access the disk.\n");
 		exit(EXIT_FAILURE);
@@ -51,7 +50,7 @@ CSV GB_OpenCSVwrite (CSV fp, char* filename){
 
 void GB_CloseCSV (CSV fp){
 	if(fp == NULL){
-		perror("no .csv file oṕened.");
+		perror("no .csv file oṕened."); /*nao precisa quitar do programa, so da return na funcao*/
 		exit(EXIT_FAILURE);
 	}
 	
@@ -60,7 +59,10 @@ void GB_CloseCSV (CSV fp){
 
 
 
-void GB_ReadCSV (CSV fp, SITE* s){
+void GB_ReadCSV (CSV fp, SITE* s){ //pq ta recebendo site como parametro? nao deveria ser lista?
+	/*detalhe: lembrar de ignorar a primeira linha que contem a classificacao dos objetos do csv */
+	/*criar duas opcoes: uma para csv com header(primeira linha inutil) e outra sem, sugestao: receber boolean mode*/
+	/*lembrar de checar se tem lista criada, vazia ou com tamanho invalido*/
 	int i = 0, j = 0, k = 0;
 	char dump = ' '; // dump is initialized as blank space so it certainly enters the reading loop on line x
 	if(fp == NULL){
@@ -84,7 +86,7 @@ void GB_ReadCSV (CSV fp, SITE* s){
 	}while(!feof(fp));
 }
 
-boolean GB_UpdateDataBase (CSV fp, char* filename, LIST* l) {
+boolean/*int*/ GB_UpdateDataBase (CSV fp, char* filename, LIST* l) { //o retorno deve ser int para retornar sucesso ou erro
 	int i = 0;
 	NODE* aux;
 	aux = l->first;
