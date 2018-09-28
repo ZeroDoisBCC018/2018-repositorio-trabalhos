@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "googlebot_ds.h"
-typedef int boolean;
 
 struct node_ {
     SITE* site;
