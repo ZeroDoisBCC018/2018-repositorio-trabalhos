@@ -7,7 +7,21 @@
 #include "googlebot_csv.h"
 #define CSV FILE*
 
+void std_divide(void){
+	fprintf(stdout, "=#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#=\n");
+}
+
+void print_first(void){
+	fprintf(stdout, "Modify the database: you can change the properties of a given site directly.\n");
+	fprintf(stdout, "Choose one of the following options:\n");
+	fprintf(stdout, "\t1 - Insert a new site;\n\t2 - Remove a site from the database;\n\t3 - Update the relevance of a specific site;\n");
+	fprintf(stdout, "\t4 - Insert a new keyword to  a site;\n\t5 - Print this menu section again;\n\t6 - Return to the main menu.\n");
+	std_divide();
+}
+
 void first(void){
+	std_divide();
+	print_first();
 }
 
 void second(void){
@@ -15,7 +29,7 @@ void second(void){
 
 void options(void){
 	fprintf(stdout, "\t1 - Modify the database;\n\t2 - Update the database;\n\t3 - Print the menu options on the screen again;\n\t4 - Exit the Googlebot.\n");
-	fprintf(stdout, "=#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#=\n");
+	std_divide();
 }
 
 void welcome(void){
@@ -24,14 +38,14 @@ void welcome(void){
 	fprintf(stdout, "ICMC/USP - Brazil, SP, Sao Carlos. This software is distributed as a free software under the\n");
 	fprintf(stdout, "\"Unlicense\". Check the official Googlebot documentation or check<http://www.unlicense.org>\n");
 	fprintf(stdout, "for more information.\n");
-	fprintf(stdout, "=#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#=\n");
-	fprintf(stdout, "Welcome. This is Googlebot alpha version 1.0. Choose one of the following options:\n")
+	std_divide();
+	fprintf(stdout, "Welcome. This is Googlebot alpha version 1.0. Choose one of the following options:\n");
 	options();	
 }
 
 void menu(void){
 	
-	int op;
+	static int op;
 	
 	do{
 		fscanf(stdin, "%d", &op);
