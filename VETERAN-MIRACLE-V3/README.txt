@@ -10,7 +10,70 @@
     -Foram utilizados GitHub para compartilhamento de código e GNU/Linux como SO
 
 *Instruções de uso:
-    -
+   Instruções de uso do programa:
+	A versão teste do Googlebot, que está contida no arquivo de código-fonte
+main.c está implementado com suas bibliotecas e estruturas de dados personalizadas.
+Cada função tem por si mensagens de erro que são transmitidas diretamente no buffer
+de erro padrão do sistema linux. Apesar disso, o programa só tem seu processo abortado
+caso um erro fatal ocorra durante a execução destas funcões. A maior parte dos erros
+deverá ser tratada pelo programa cliente.
+	Algumas macros foram utilizadas, entre elas os retornos ERROR (-404), SUCCESS
+(1), TRUE (1) e FALSE (0). Além disso, o tipo booleano 'boolean' também está definido.
+O retorno booleano está reservado apenas para algumas funções.
+	Não há nenhuma garantia de que as bibliotecas e o cliente deste programa
+irão funcionar corretamente em algum sistema que não seja baseado em GNU/Linux,
+utilizando um compilador diferente do GCC ou com um padrão da linguagem C que não
+seja o ANSI C89.
+	Este programa está sendo publicado sob o regime da licensa "The Unlicense".
+Leia a licensa abaixo:
+
+-----------------------------------------------------------------------
+
+This is free and unencumbered software released into the public domain.
+
+	Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+	In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org> 
+
+-----------------------------------------------------------------------
+
+SOBRE O USO DO PROGRAMA CLIENTE:
+	O programa cliente deverá ser compilado em um diretório isolado com
+os arquivos C e H que estão na mesma pasta zipada. O uso da makefile que vem
+no arquivo zip facilita muito a compilação. As funções podem ser visualizadas
+no arquivo de cabeçalho, juntamente com comentários pertinentes e seus retornos
+e parâmetros.
+	Ao inicializar o programa, um arquivo .csv deve ser referenciado em linha
+de comando do Bash. Este será usado como o banco de dados principal. O padrão é
+igual ao .csv que está na mesma pasta zipada. O menu do programa oferece algumas
+opções com instruções. O menu está composto de duas seções diferentes. A segunda
+seção é a mais simples: a base de dados é atualizada com a lista que roda no tempo
+de execução do programa. A primeira seção permite que o usuário possa inserir sites,
+removê-los, atualizar relevância e inserir tags (keywords). Para confirmar ações, apenas
+o código 1 é aceito. Todas as opções de menu podem ser mostradas novamente no console
+inserindo o respectivo código que é mostrado em cada seção.
+	Caso seu computador não possua espaço de memória stack, heap ou de dados, o programa
+será abortado na tentativa de criar arquivos ou listas para operar a base de dados. 
+   
     
 *Justificativas para as escolhas de estruturas:
     -O grupo tomou a decisão de usar listas ligadas simplesmente encadeadas como norte para o estruturamento dos dados. Também consideramos
