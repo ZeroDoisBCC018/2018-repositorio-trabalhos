@@ -18,7 +18,8 @@
      anterior ao conhecimento mais aprofundado dessas estruturas. As listas são dinâmicas graças à natureza mutável das operações envolvidas
      no googlebot - vide inserção de novos sites em diferentes posições e remoção destes - e sua frequência num cenário realista.
      Listas duplamente encadeadas foram descartadas dado a ineficiência de operações como buscas e inserções ou remoções de elementos, já que 
-     teria de haver muito manejamento de ponteiros e conexões. 
+     teria de haver muito manejamento de ponteiros e conexões. Já que tratamos de listas ordenadas por código, em que a maioria das atividades necessárias posteriormente à criação da lista a partir da leitura do CSV seria mais direta, a lista ligada simplesmente encadeada se mostrou simples e eficaz.
+     É válido apontar que tratamos as funções envolvendo diretamente os sites e seus elementos e a lista com seus nós de forma mais abstrata como entidades com um certo grau de independência, inclusive em arquivos distintos de descrição. Isso facilita a legibilidade e garante elegância ao projeto graças à relação diferente de graus de abstração presente entre os sites (que usam por sua vez funções mais primitivas das listas) e das listas em si, tratadas como elementos abstratos como na definição.
      
 * Justificativas para as escolhas dos métodos:
 
