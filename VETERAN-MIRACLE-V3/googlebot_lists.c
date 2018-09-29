@@ -7,7 +7,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 #define boolean int
+
+
 
 NODE* GB_NewNode (void) {
 	NODE* new = (NODE*) malloc(sizeof (NODE));
@@ -100,6 +103,7 @@ NODE* GB_SearchCode (LIST* l, int code) {
 	else return aux;
 }
 
+/* REVER */
 int GB_UpdateRelevance (LIST* l, int code, int newrel) {
 	if (GB_CheckEmptyList(l)) return ERROR;
 	else if (GB_CheckInvalidList(l)) return ERROR;
@@ -107,6 +111,15 @@ int GB_UpdateRelevance (LIST* l, int code, int newrel) {
 	NODE* aux;
 	aux = GB_SearchCode (l, code);	
 	aux->site->code = newrel;
+	/*int check = 0;
+	int i = 0;
+	int listsize = GB_CountListSize(l);
+	for (i = 0; i < listsize; i++) {
+		if (aux->site->code == code) {
+			check = 1;
+			break;
+		}
+	}*/
 	return SUCCESS;
 }
 
@@ -125,18 +138,18 @@ int GB_EraseList (LIST* l) {
 	return SUCCESS;
 }
 
-/*LIST* GB_Sort(LIST* l) {
+void GB_Sort(LIST* l) {
 	int i = 0;
 	LIST* auxfirst = NULL;
 	LIST* auxsecond = NULL;
-	// POSSIBLE SHIT POINT --> CARAI 03
+	LIST* auxfinal = NULL;
+
 	int listsize = GB_CountListSize(l);
 	if (listsize == 0 || listsize == 1) return;
 	else {
 		
 		NODE* auxnode = l->first;
-		
-		
+	
 		auxfirst = GB_NewList();
 		auxsecond = GB_NewList();
 		
@@ -152,11 +165,34 @@ int GB_EraseList (LIST* l) {
 		}
 		GB_Sort(auxfirst);
 		GB_Sort(auxsecond);
-		GB_Merge(auxfirst, auxsecond);
+		
+		auxfinal = GB_Merge(auxfirst, auxsecond);
 	}
+	
+	int auxlistsize;
+	auxlistsize = GB_CountListSize(l);
+	
+	if (auxlistsize == listsize)
+	{
+		NODE* naux1;
+		NODE* naux2;
+		naux1 = l->first;
+		while (naux1 != NULL){
+			naux2 = naux1->next;
+			free (naux1);
+			naux1 = naux2;
+		}
+		naux1 = NULL;
+		naux2 = NULL;
+		
+		l->first = auxfinal->first;
+		l->last = auxfinal->last;
+		free (auxfinal);
+	}
+	
 }
 
-void GB_Merge (LIST* lfirst, LIST* lsecond) {
+LIST* GB_Merge (LIST* lfirst, LIST* lsecond) {
 	LIST* aux = GB_NewList();
 	NODE* auxnode1 = lfirst->first;
 	NODE* auxnode2 = lsecond->first;
@@ -181,8 +217,11 @@ void GB_Merge (LIST* lfirst, LIST* lsecond) {
 			GB_InsertNodeLastPos (aux, auxnode1);
 			auxnode1 = auxnode1->next;
 		}	
-	}	
-}*/
+	}
+	
+	return aux;
+}
+
 int InsertNodeAtPosition (LIST* l, NODE* n, int code){
 	if (GB_CheckInvalidList(l)) return ERROR;
 	if (n == NULL) n = GB_NewNode();

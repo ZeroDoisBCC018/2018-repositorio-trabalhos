@@ -34,11 +34,13 @@ typedef struct site_ SITE;*/
 
 struct site_ {
 	int code;
-	char* name;
+	const char* name;
 	int relev;
-    char* link;
-	char keyw[10][50];
+	const char* link;
+	const char keyw[10][50];
 };
+
+
 
 NODE* GB_NewNode(void);
 
@@ -77,6 +79,9 @@ int InsertNodeAtPosition (LIST* l, NODE* n, int code);
 /*Insert keyword at X specific code of the list)*/
 int InsertKeyWord(LIST* l, int code);
 
+
+
+
 /*reads site information from standard input*/
 int GB_GetSiteStdin(LIST* l);
 
@@ -85,6 +90,8 @@ int GB_InsertSite(LIST* l, int pos);
 
 /*removes a site from list according to its code*/
 int GB_RemoveSite(LIST* l, int code);
+
+
 
 /*checks validity for codes of new site entries*/
 int GB_CodeCheck (int code, LIST* l);
