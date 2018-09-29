@@ -164,14 +164,11 @@ void GB_Sort(LIST* l) {
 }
 
 void GB_Merge (LIST* lfirst, LIST* lsecond) {
-	int i = 0;
 	LIST* aux = GB_NewList();
-	int lfirst_size = GB_CountListSize(lfirst);
-	int lsecond_size = GB_CountListSize(lsecond);
 	NODE* auxnode1 = lfirst->first;
-	NODE* auxnode2 = lsecond->next;
+	NODE* auxnode2 = lsecond->first;
 	
-	while (lfirst_size != 0 && lsecond_size != 0) {
+	while (auxnode1 != NULL || auxnode2 != NULL) {
 		if (auxnode1->site->code < auxnode2->site->code) {
 			GB_InsertNodeLastPos (aux, auxnode1);
 			auxnode1 = auxnode1->next;
@@ -181,12 +178,18 @@ void GB_Merge (LIST* lfirst, LIST* lsecond) {
 		}
 	}
 	
-	while (i > lsecond_size) {
-		GB_InsertNodeLastPos (aux, auxnode2);
-		auxnode2 = auxnode2->next;
+	if (auxnode1 == NULL) {
+		while (auxnode2 != NULL) {
+			GB_InsertNodeLastPos (aux, auxnode2);
+			auxnode2 = auxnode2->next;
+		}	
+	} else {
+		while (auxnode1 != NULL) {
+			GB_InsertNodeLastPos (aux, auxnode1);
+			auxnode1 = auxnode1->next;
+		}	
 	}	
 }
-
 int InsertNodeAtPosition (LIST* l, NODE* n, int code){
 	if (GB_CheckInvalidList(l)) return ERROR;
 	if (n == NULL) n = GB_NewNode;
