@@ -192,7 +192,6 @@ int InsertNodeAtPosition (LIST* l, NODE* n, int code){
 		l->size = 1;
 		return SUCCESS;
 	}
-	GB_Sort(l);
 	NODE* aux1;
 	NODE* aux2;
 	aux1 = l->first;
