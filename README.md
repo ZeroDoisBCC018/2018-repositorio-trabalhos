@@ -1,4 +1,4 @@
-ICC1-ICC-2-Labs-Algs
+Trabalhos em C.
 -------------------------
 
 Cálculo não dá futuro.
