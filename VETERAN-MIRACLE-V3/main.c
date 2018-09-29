@@ -8,7 +8,7 @@
 
 LIST* l;
 
-void menu(void);
+void menu(CSV fp, char* fn);
 
 void std_divide(void){
 	fprintf(stdout, "=#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#==#=\n");
@@ -221,7 +221,7 @@ void error_no_name(void){
 	fprintf(stdout, "an empty new one with this name will be created.\n");
 }
 
-int main(int argc, char* argv[2]){
+int main(int argc, char* argv[]){
 	
 	if (argv[1] == NULL){ 
 		error_no_name();
@@ -229,7 +229,7 @@ int main(int argc, char* argv[2]){
 		exit(EXIT_FAILURE);
 	} 
 	
-	char* fn;
+	char* fn = (char*)malloc(50*sizeof(char));
 	strcpy(fn, argv[1]);
 	
 	CSV fp = GB_OpenCSVread(fp, fn);
@@ -243,6 +243,7 @@ int main(int argc, char* argv[2]){
 	}
 	
 	welcome(fp, fn);
+	free(fn);
 	
 	return EXIT_SUCCESS;
 }
