@@ -7,7 +7,7 @@ void** ptrs;
 void start_pointer_storage(void){
 	ptrs = (void**) malloc(500*sizeof(void*));
 	for(int i = 0; i < 500; i++){
-		ptrs[i] =NULL;
+		ptrs[i] = NULL;
 	}
 }
 
@@ -21,5 +21,4 @@ void free_storage(void){
 	for(int i = 500; i > 0; i--){
 		free(ptrs[i]);
 	}
-	free(ptrs);
 }
