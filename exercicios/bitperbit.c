@@ -1,7 +1,3 @@
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 #include "bitperbit.h"
 
 void swap_ints(int a, int b){
