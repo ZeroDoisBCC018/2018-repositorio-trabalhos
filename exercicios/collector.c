@@ -1,25 +1,30 @@
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 #include "collector.h"
 
-void** ptrs;
+void** public_storage;
+unsigned int public_size;
 
-void start_collector(void){
-	ptrs = (void**) malloc(500*sizeof(void*));
-	for(int i = 0; i < 500; i++){
-		ptrs[i] = NULL;
+int collector_start(unsigned int size1){
+	public_size = size1;
+	public_storage = (void**) malloc(size1*sizeof(void*));
+	for (int i = 0; i < size1; i++){
+		public_storage[i] = NULL;
 	}
+	if (public_storage != NULL) return 1;
+	return 0;
 }
 
-void put_in_collector(void* p){
+void collect(void* p){
 	static int i = 0;
-	ptrs[i] = p;
+	public_storage[i] = p;
 	i++;
 }
 
-void free_collector(void){
-	for(int i = 500; i > 0; i--){
-		free(ptrs[i]);
+void freeall(void){
+	for (int i = public_size-1; i > 0; i--){
+		free(public_storage[i]);
 	}
-	free(ptrs);
+	free(public_storage);
 }
