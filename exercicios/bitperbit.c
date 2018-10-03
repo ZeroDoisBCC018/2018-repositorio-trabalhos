@@ -16,11 +16,11 @@ void force_terminator(char* str, int n){
 	str[n] = '\0';
 }
 
-void dump_one_byte(FILE* f){
-	fscanf(f, " ");
+void fdump1(FILE* f){
+	fgetc(f);
 }
 
-char* read_line(FILE* fp){
+char* readline(FILE* fp){
 	char* str;
 	int i = 0;
 	char c;
@@ -30,6 +30,6 @@ char* read_line(FILE* fp){
 		str[i] = c;
 		i++;
 	}while(c != '\n');
-	str[i] = '\0';
+	str[i-1] = '\0';
 	return str;
 }
