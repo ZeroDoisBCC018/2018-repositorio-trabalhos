@@ -37,7 +37,7 @@ unsigned int fibonacci(int n);
 int cleanfile(FILE* fp, const char* mode);
 
 /* do an arithmetic operation by receiving the integer reference
- * can be used in functions when you cant return the value
+ * can be used in functions when the client can't return the value
  * op = the arithmetic operation simbol. note: this function reads
  * its parameters in polish notation. */
 int int_arit_ref(const char op, int* n, int a);
