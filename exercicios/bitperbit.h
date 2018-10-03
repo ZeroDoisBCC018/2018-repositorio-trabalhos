@@ -3,17 +3,34 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <string.h>
 
 void swap_ints(int a, int b);
 
-int int_module(int a);
+unsigned int int_module(int n);
 
-void force_terminator(char* str, int n);
+void force_terminator(char* str);
 
-void fdump1(FILE* f);
+void fdump1(FILE* stream);
 
-char* read_line(FILE* fp);
+void fdumpline(FILE* stream);
+
+char* readline(FILE* stream);
+
+int higher(int a, int b);
+
+int lower(int a, int b);
+
+int lcm(int a, int b);
+
+int gcd(int a, int b);
+
+unsigned int factorial(int n);
+
+unsigned int fibonacci(int n);
+
+int cleanfile(FILE* fp, const char* mode);
+
+int int_arit_ref(const char op, int* n, int a);
 
 #endif
