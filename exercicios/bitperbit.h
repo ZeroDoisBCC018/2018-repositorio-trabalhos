@@ -11,7 +11,7 @@ int int_module(int a);
 
 void force_terminator(char* str, int n);
 
-void dump_one_byte(FILE* f);
+void fdump1(FILE* f);
 
 char* read_line(FILE* fp);
 
