@@ -1,10 +1,10 @@
 #ifndef _COLLECTOR_H_
 #define _COLLECTOR_H_
 
-void start_collector(void);
+int collector_start(unsigned int size);
 
-void put_in_collector(void* p);
+void collect(void* p);
 
-void free_collector(void);
+void freeall(void);
 
 #endif
