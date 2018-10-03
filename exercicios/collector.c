@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <stddef.h>
-#include <string.h>
 #include "collector.h"
 
 void** public_storage;
