@@ -91,14 +91,14 @@ int main(){
 	FILE* dcp = fopen(dc, "r");
 	FILE* twp = fopen(tw, "r");
 	
-	char** d = (char**) malloc(5000*sizeof(char*));
+	char** d = (char**) malloc(1000000*sizeof(char*));
 	int i = 0;
-	for(i = 0; i < 5000; i++){
+	for(i = 0; i < 1000000; i++){
 		d[i] = (char*) malloc(46*sizeof(char));
 	}
 	
-	char** t = (char**) malloc(5000*sizeof(char*));
-	for(i = 0; i < 5000; i++){
+	char** t = (char**) malloc(1000000*sizeof(char*));
+	for(i = 0; i < 1000000; i++){
 		t[i] = (char*) malloc(46*sizeof(char*));
 	}
 	
@@ -108,7 +108,7 @@ int main(){
 		i++;
 	} while(!feof(dcp));
 	
-	mergesort_strings(d, &i, 0, 5000);
+	mergesort_strings(d, &i, 0, 1000000);
 	
 	char *dump, *ss;
 	
@@ -152,12 +152,12 @@ int main(){
 	if(check == false) printf("No tweets to check\n");
 	
 	int y = 0;
-	for(y = 0; y < 5000; y++){
+	for(y = 0; y < 1000000; y++){
 		free(d[y]);
 	}
 	free(d);
 	
-	for(y = 0; y < 5000; y++){
+	for(y = 0; y < 1000000; y++){
 		free(t[y]);
 	}
 	free(t);
