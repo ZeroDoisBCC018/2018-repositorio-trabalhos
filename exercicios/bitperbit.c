@@ -1,9 +1,9 @@
 #include "bitperbit.h"
 
-void swap_ints(int a, int b){
-	a = a + b;
-	b = a - b;
-	a = a - b; 
+void swap_ints(int* a, int* b){
+	*a = *a + *b;
+	*b = *a - *b;
+	*a = *a - *b; 
 }
 
 unsigned int int_module(int n){
