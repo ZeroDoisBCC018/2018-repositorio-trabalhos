@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-void swap_ints(int a, int b);
+/* this function uses call by reference
+ * so the arguments are each variable's address */
+void swap_ints(int* a, int* b);
 
 unsigned int int_module(int n);
 
@@ -36,9 +38,9 @@ unsigned int fibonacci(int n);
 //mode = the file access mode after cleaning
 int cleanfile(FILE* fp, const char* mode);
 
-/* do an arithmetic operation by receiving the integer reference
+/* do an arithmetic operation by receiving the integer reference (&var)
  * can be used in functions when the client can't return the value
- * op = the arithmetic operation simbol. note: this function reads
+ *  (char) op = the arithmetic operation simbol. note: this function reads
  * its parameters in polish notation. */
 int int_arit_ref(const char op, int* n, int a);
 
