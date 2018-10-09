@@ -4,15 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 /* this function uses call by reference
  * so the arguments are each variable's address */
 void swap_ints(int* a, int* b);
 
-unsigned int int_module(int n);
-
-//force \0 terminator in the last character of a string
-void force_terminator(char* str);
+int int_module(int n);
 
 //dump one byte (read as a character) only
 void fdump1(FILE* stream);
@@ -43,5 +41,14 @@ int cleanfile(FILE* fp, const char* mode);
  *  (char) op = the arithmetic operation simbol. note: this function reads
  * its parameters in polish notation. */
 int int_arit_ref(const char op, int* n, int a);
+
+int power_ref(int* n, int e);
+
+double totalclock(clock_t start_t, clock_t end_t);
+
+void merge(int v[], int s, int m, int e);
+void mergeSort(int vector[], int start, int end);
+
+void heapsort(int a[], int n);
 
 #endif
