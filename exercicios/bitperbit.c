@@ -190,6 +190,7 @@ void mergeSort(int vector[], int start, int end) {
 
 void heapsort(int a[], int n) {
         int i = n / 2, dad, son, t;
+       
         while (true) {
                 if (i > 0) {
                         i--;
@@ -200,8 +201,10 @@ void heapsort(int a[], int n) {
                         t = a[n];
                         a[n] = a[0];
                 }
+               
                 dad = i;
                 son = i * 2 + 1;
+               
                 while (son < n) {
                         if ((son + 1 < n) && (a[son + 1] > a[son]))
                                 son++;
