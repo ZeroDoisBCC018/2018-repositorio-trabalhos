@@ -46,9 +46,12 @@ int power_ref(int* n, int e);
 
 double totalclock(clock_t start_t, clock_t end_t);
 
-void merge(int v[], int s, int m, int e);
-void mergeSort(int vector[], int start, int end);
+/* the first one is called inside the second one
+ * you just need to call the second one */
+void int_merge(int v[], int s, int m, int e); 
+void int_mergesort(int vector[], int start, int end);
 
+//n = vector size
 void heapsort(int a[], int n);
 
 #endif
