@@ -6,15 +6,10 @@ void swap_ints(int* a, int* b){
 	*a = *a - *b; 
 }
 
-unsigned int int_module(int n){
+int int_module(int n){
 	if(n == 0) return 0;
-	else if(n > 0) return ((unsigned int) n);
-	else return((unsigned int) n*(-1));
-}
-
-void force_terminator(char* str){
-	int n = (int) strlen(str);
-	str[n-1] = '\0';
+	else if(n > 0) return n;
+	else return (n*(-1));
 }
 
 void fdump1(FILE* stream){
@@ -122,4 +117,92 @@ int int_arit_ref(const char op, int* n, int a){
 		default: return *n;
 	}
 	return 0;
+}
+
+int power_ref(int* n, int e){
+	int i;
+	int aux = *n;
+	for(i = 0; i < e; i++){
+		*n *= aux;
+	}
+	return *n;
+}
+
+double totalclock(clock_t start_t, clock_t end_t){
+	double total_t = (double) (end_t - start_t) / CLOCKS_PER_SEC;
+	return total_t;
+}
+
+void merge(int v[], int s, int m, int e) {
+    int s1 = s, s2 = m+1, saux = 0, size = e-s+1;
+    int *vaux;
+    vaux = (int*) malloc(size * sizeof(int));
+
+    while(s1 <= m && s2 <= e){
+        if(v[s1] < v[s2]) {
+            vaux[saux] = v[s1];
+            s1++;
+        } else {
+            vaux[saux] = v[s2];
+            s2++;
+        }
+        saux++;
+    }
+
+    while(s1 <= m){  
+        vaux[saux] = v[s1];
+        saux++;
+        s1++;
+    }
+
+    while(s2 <= e) {   
+        vaux[saux] = v[s2];
+        saux++;
+        s2++;
+    }
+
+    for(saux = s; saux <= e; saux++){    
+        v[saux] = vaux[saux-s];
+    }
+    
+    free(vaux);
+}
+
+void mergeSort(int vector[], int start, int end){
+    if (start < end) {
+        int middle = (end+start)/2;
+
+        mergeSort(vector, start, middle);
+        mergeSort(vector, middle+1, end);
+        merge(vector, start, middle, end);
+    }
+}
+
+void heapsort(int a[], int n) {
+   int i = n / 2, dad, son, t;
+   while(true) {
+      if (i > 0) {
+          i--;
+          t = a[i];
+      } else {
+          n--;
+          if (n == 0) return;
+          t = a[n];
+          a[n] = a[0];
+      }
+      dad = i;
+      son = i * 2 + 1;
+      while (son < n) {
+          if ((son + 1 < n)  &&  (a[son+1] > a[son]))
+              son++;
+          if (a[son] > t) {
+             a[dad] = a[son];
+             dad = son;
+             son = dad * 2 + 1;
+          } else {
+             break;
+          }
+      }
+      a[dad] = t;
+   }
 }
