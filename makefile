@@ -6,6 +6,7 @@ c89= -std=c89
 c99= -std=c99
 c11= -std=c11
 objetos:= $(patsubst %.c,%.o,$(wildcard *.c))
+nome=insira_nome_aqui
 
 target: dependencies
 	system command
@@ -26,10 +27,10 @@ clean:
 	rm -rf *o programa
 
 all:
-	$(CP) $(COPT) $(wildcard *.c *.h *.o *.a)
+	$(CP) $(wildcard *.c *.h *.o *.a) -o $(nome) -Wall $(c11)
 	
 run:
-	./programa
+	./$(nome)
 
 objdump:
 	objdump -D -M intel programa.bin | grep main.: -A20
