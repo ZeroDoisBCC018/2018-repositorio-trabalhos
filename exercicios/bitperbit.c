@@ -1,5 +1,16 @@
 #include "bitperbit.h"
 
+/*
+FUNCOES QUE FALTAM:
+1 - int elementsof(array, type of array)
+2 - char* typeof(generic var)
+3 - int stringhash(char* str)
+4 - long long unsigned int checksum(str1, str2)
+5 - double decimalpart(double)
+6 - int integerpart(double)
+7 - int spinbits(int, const char left-right)
+*/
+
 void swap_ints(int * a, int * b) {
         * a = * a + * b;
         * b = * a - * b;
