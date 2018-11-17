@@ -33,5 +33,6 @@ int main() {
     pot = potencia(vet[i], p);
     printf(" %lli", pot);
   }
+  free(vet);
   return 0;
 }
