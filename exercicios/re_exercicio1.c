@@ -2,12 +2,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-/*  Este codigo esta com poucos tratamentos de excecao,
-    poucos erros ja levariam a comportamento indefinido
-    (instavel). O objetivo eh achar pelo menos 3 formas
-    de cagar o objeto por completo.
-*/
-
 typedef struct _stdobject_{
     va_list args;
     void* morph;
