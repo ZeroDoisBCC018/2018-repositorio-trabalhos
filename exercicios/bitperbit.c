@@ -1,7 +1,6 @@
 #include "bitperbit.h"
 
 /*
-FUNCOES QUE FALTAM:
 1 - int elementsof(array, type of array)
 2 - char* typeof(generic var)
 3 - int stringhash(char* str)
