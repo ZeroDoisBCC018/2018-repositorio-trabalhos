@@ -3,10 +3,10 @@
 /*
 1 - int elementsof(array, type of array)
 2 - char* typeof(generic var)
-3 - int stringhash(char* str)
+
 4 - long long unsigned int checksum(str1, str2)
-5 - double decimalpart(double)
-6 - int integerpart(double)
+
+
 7 - int spinbits(int, const char left-right)
 */
 
@@ -228,4 +228,18 @@ void heapsort(int a[], int n) {
                 }
                 a[dad] = t;
         }
+}
+
+unsigned long hash(unsigned char * str) {
+       unsigned long hash = 5381;
+       int c;
+
+       while (c = *str++)
+              hash = ((hash << 5) + hash) + c;
+
+       return hash;
+}
+
+double decimalpart(double n) {
+       return(n % 1);
 }
