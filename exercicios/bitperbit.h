@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 /* this function uses call by reference
  * so the arguments are each variable's address */
@@ -53,5 +54,10 @@ void int_mergesort(int vector[], int start, int end);
 
 //n = vector size
 void heapsort(int a[], int n);
+
+unsigned long hash(unsigned char * str);
+
+
+double decimalpart(double n);
 
 #endif
