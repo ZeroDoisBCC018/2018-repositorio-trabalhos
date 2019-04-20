@@ -1,12 +1,14 @@
-#custom makefile by zerodois
-#usando CP eh possivel mudar o compilador para clang ou g++ facilmente
+#custom makefile by zerodois-bcc
+#usando CP eh possivel mudar o compilador para g++, clang, tinycc e outros facilmente (apenas checar as flags COPT)
+
 CP=gcc
 COPT=-c -Wall
 c89= -std=c89
 c99= -std=c99
 c11= -std=c11
+ext=<extensão>
 objetos:= $(patsubst %.c,%.o,$(wildcard *.c))
-nome=insira_nome_aqui
+nome=<insira_nome_aqui>
 
 target: dependencies
 	system command
@@ -24,7 +26,7 @@ objects: $(objetos)
 	$(CP) $(COPT) cc -o foo $(objetos)
 	
 clean:
-	rm -rf *o programa
+	find . -print0 -type f -o -type d -not -name '\.' | xargs -0 rm -rf
 
 all:
 	$(CP) $(wildcard *.c *.h *.o *.a) -o $(nome) -Wall $(c11)
@@ -36,15 +38,25 @@ objdump:
 	objdump -D -M intel programa.bin | grep main.: -A20
 
 valg:
-	valgrind ./programa -v --leak-check=full
+	valgrind ./$(nome) -v --leak-check=full
 	
 gdb:
 	$(CP) $(COPT) (wildcard *.c *.h *.o *.a) -g
-	gdb ./programa -w
+	gdb ./$(nome) -w
 	
 disas: gdb
 	disas main
 
 tar:
-	tar cfv programa.tar $(wildcard *.c *.h *.o *.a)
+	tar cfv $(nome).tar $(wildcard *.c *.h *.o *.a)
+	
+hexdump:
+	hexdump -Cv programa.c | less
+	
+zip:
+	zip $(nome) $(wildcard *.c *.h *.o *.a)
+
+ignore:
+	rm -rf *$(ext)
+
 
